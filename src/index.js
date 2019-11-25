@@ -17,22 +17,34 @@
 */
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import "./assets/vendor/nucleo/css/nucleo.css";
 import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
+import authStore from "./stores/AuthStore.jsx"
+import PrivateRoute from "./PrivateRoute.jsx";
 
 import AdminLayout from "./layouts/Admin.jsx";
 import AuthLayout from "./layouts/Auth.jsx";
+import ReturnLogin from "./views/ReturnLogin.jsx";
+import {Provider} from "mobx-react";
+
+
+const stores = {
+    authStore
+};
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} />
-      <Route path="/auth" render={props => <AuthLayout {...props} />} />
-      <Redirect from="/" to="/admin/index" />
-    </Switch>
-  </BrowserRouter>,
+  <Provider {...stores}>
+      <BrowserRouter>
+        <Switch>
+            <Route path="/callback" render={props => <ReturnLogin {...props} />} />
+            <Route path="/auth" render={props => <AuthLayout {...props} />} />
+             {/*<Redirect from="/" to="/admin/index" />*/}
+            <PrivateRoute path="/" component={AdminLayout} />
+        </Switch>
+      </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
