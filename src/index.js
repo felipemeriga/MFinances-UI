@@ -27,7 +27,6 @@ import PrivateRoute from "./PrivateRoute.jsx";
 
 import AdminLayout from "./layouts/Admin.jsx";
 import AuthLayout from "./layouts/Auth.jsx";
-import ReturnLogin from "./views/ReturnLogin.jsx";
 import {Provider} from "mobx-react";
 
 
@@ -39,7 +38,6 @@ ReactDOM.render(
   <Provider {...stores}>
       <BrowserRouter>
         <Switch>
-            <Route path="/callback" render={props => <ReturnLogin {...props} />} />
             <Route path="/auth" render={props => <AuthLayout {...props} />} />
              {/*<Redirect from="/" to="/admin/index" />*/}
             <PrivateRoute path="/" component={AdminLayout} />

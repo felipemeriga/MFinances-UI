@@ -7,9 +7,8 @@ import { CognitoUserPool } from 'amazon-cognito-identity-js'
 class AuthStore {
     @observable authenticated: boolean = true;
     @observable authLoading: boolean = false;
-    @observable cognitoAuth;
-    @observable session;
-    @observable user;
+    cognitoAuth;
+    session;
 
 
     constructor(props) {
@@ -23,42 +22,46 @@ class AuthStore {
         ClientId: appConfig.clientId})
     }
 
-    createCognitoUser() {
+    @action
+    getUserInfoSession() {
+        this.authLoading = true;
         const pool = this.createCognitoUserPool();
-        debugger;
-        return pool.getCurrentUser()
+        const currentUser = pool.getCurrentUser();
+        if(currentUser == null) {
+            this.authLoading = false;
+            return
+        }
+        currentUser.getSession((err, result) => {
+            if (err || !result) {
+                console.log('Failure getting Cognito session: ' + err);
+            }
+
+            // Resolve the promise with the session credentials
+            console.debug('Successfully got session: ' + JSON.stringify(result));
+            const session = {
+                credentials: {
+                    accessToken: result.accessToken.jwtToken,
+                    idToken: result.idToken.jwtToken,
+                    refreshToken: result.refreshToken.token
+                },
+                user: {
+                    userName: result.idToken.payload['cognito:username'],
+                    email: result.idToken.payload.email
+                }
+            };
+           this.session = session;
+            this.authLoading = false;
+        })
     }
 
 
     parseCognitoWebResponse(href) {
         this.cognitoAuth.parseCognitoWebResponse(href);
-        debugger;
-        const cognitoUser = this.createCognitoUser();
-        debugger;
-            cognitoUser.getSession((err, result) => {
-                if (err || !result) {
-                    console.log('Failure getting Cognito session: ' + err);
-                }
-
-                // Resolve the promise with the session credentials
-                console.debug('Successfully got session: ' + JSON.stringify(result));
-                const session = {
-                    credentials: {
-                        accessToken: result.accessToken.jwtToken,
-                        idToken: result.idToken.jwtToken,
-                        refreshToken: result.refreshToken.token
-                    },
-                    user: {
-                        userName: result.idToken.payload['cognito:username'],
-                        email: result.idToken.payload.email
-                    }
-                };
-                this.session = session;
-            })
+        this.getUserInfoSession();
     }
 
+    @action
     createCognitoAuth() {
-        console.log('testee loko');
         const appWebDomain = appConfig.userPoolBaseUri.replace('https://', '').replace('http://', '');
         this.cognitoAuth = new CognitoAuth({
             UserPoolId: appConfig.userPool,
@@ -73,8 +76,7 @@ class AuthStore {
 
         this.cognitoAuth.userhandler = {
             onSuccess: session => {
-                console.log('Cognito Auth object created!');
-                this.session = session;
+                this.getUserInfoSession();
             },
             onFailure: error => {
                 console.log('Error: ' + error);
@@ -88,7 +90,12 @@ class AuthStore {
     }
 
     signOut() {
+        this.session = undefined;
         this.cognitoAuth.signOut();
+    }
+
+    isUserAuthenticated() {
+        return this.cognitoAuth.isUserSignedIn();
     }
 
 

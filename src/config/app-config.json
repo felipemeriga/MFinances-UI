@@ -3,8 +3,8 @@
   "userPool": "eu-west-1_Mz5mOFlIq",
   "userPoolBaseUri": "https://instabot-dev.auth.eu-west-1.amazoncognito.com",
   "clientId": "7unq42i23f68dv8ejag0lmefqc",
-  "callbackUri": "http://localhost:3000/callback",
-  "signoutUri": "http://localhost:3000/callback",
+  "callbackUri": "http://localhost:3000",
+  "signoutUri": "http://localhost:3000",
   "tokenScopes": [
     "email"
   ],

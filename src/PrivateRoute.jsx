@@ -1,35 +1,39 @@
 
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {Route, Redirect, Switch} from "react-router-dom";
-import AdminLayout from "./layouts/Admin";
+import {Route} from "react-router-dom";
 
 @inject("authStore")
 @observer
 class PrivateRoute extends React.Component {
 
-    createCognitoAuth(){
-        this.props.authStore.login();
+    componentWillMount(): void {
+        const urlString = window.location.href
+        var url = new URL(urlString);
+        if(url.hash !== "" && url.hash.includes("access_token") && !this.props.authStore.isUserAuthenticated()) {
+            this.props.authStore.parseCognitoWebResponse(window.location.href);
+        }
+    }
+
+    // User this function for testing purposes only, to delete the session
+    signOutForTest(){
+       this.props.authStore.signOut();
     }
 
     render() {
-       this.createCognitoAuth();
+        //this.signOutForTest();
         const {component: Component, ...rest} = this.props;
-        console.log("rendering");
         return (
             <Route
                 {...rest}
                 render={props =>
-                    this.props.authStore.authenticated ? (
-                        <Switch>
-                            <Route path="/admin" render={props => <AdminLayout {...props} />} />
-                            <Redirect from="/" to="/admin/index" />
-                        </Switch>
+                    this.props.authStore.isUserAuthenticated() ? (
+                        <Component {...props} />
                     ) : (
                         this.props.authStore.authLoading ? (
                             <div>Loading...</div>
                         ) : (
-                            <Redirect to={{pathname: '/auth/login', state: {from: this.props.location}}}/>
+                            this.props.authStore.login()
                         )
                     )
                 }
