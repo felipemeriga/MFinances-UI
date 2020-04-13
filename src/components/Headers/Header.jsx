@@ -19,8 +19,21 @@ import React from "react";
 
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
+import {connect} from "react-redux";
+import {addBook, deleteBook} from "../../actions/books";
+import {createCognitoAuth, login} from "../../actions/auth"
 
 class Header extends React.Component {
+
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount(): void {
+    this.props.createCognitoAuth();
+  }
+
   render() {
     return (
       <>
@@ -154,6 +167,35 @@ class Header extends React.Component {
       </>
     );
   }
+
 }
 
-export default Header;
+Header.defaultProps = {
+  books: []
+};
+
+const mapStateToProps = state => {
+  return {
+    books: state.books,
+    auth: state.auth
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    handleBookSubmit: (book) => {
+      dispatch(addBook(book));
+    },
+    handleBookDelete: (book) => {
+      dispatch(deleteBook(book));
+    },
+    createCognitoAuth: () => {
+      dispatch(createCognitoAuth());
+    },
+    login: () => {
+      dispatch(login());
+    }
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
