@@ -24,23 +24,30 @@ import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
 import authStore from "./stores/AuthStore.jsx"
 import PrivateRoute from "./PrivateRoute.jsx";
-
+import {applyMiddleware, createStore} from "redux";
+import logger from "redux-logger";
+import bookState from "./reducers";
 import AdminLayout from "./layouts/Admin.jsx";
 import AuthLayout from "./layouts/Auth.jsx";
-import {Provider} from "mobx-react";
+import {Provider} from "react-redux";
 
 
 const stores = {
     authStore
 };
 
+const store = createStore(
+    bookState,
+    applyMiddleware(logger)
+);
+
 ReactDOM.render(
-  <Provider {...stores}>
+  <Provider store={store}>
       <BrowserRouter>
         <Switch>
-            <Route path="/auth" render={props => <AuthLayout {...props} />} />
+            {/*<Route path="/auth" render={props => <AuthLayout {...props} />} />*/}
              {/*<Redirect from="/" to="/admin/index" />*/}
-            <PrivateRoute path="/" component={AdminLayout} />
+            <Route path="/" component={AdminLayout} />
         </Switch>
       </BrowserRouter>
   </Provider>,
