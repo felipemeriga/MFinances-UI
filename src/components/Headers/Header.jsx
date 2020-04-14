@@ -21,7 +21,9 @@ import React from "react";
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 import {connect} from "react-redux";
 import {addBook, deleteBook} from "../../actions/books";
-import {createCognitoAuth, login} from "../../actions/auth"
+import * as appActions from "../../actions";
+import plannings from "../../reducers/plannings";
+import { bindActionCreators } from 'redux';
 
 class Header extends React.Component {
 
@@ -31,7 +33,8 @@ class Header extends React.Component {
   }
 
   componentDidMount(): void {
-    this.props.createCognitoAuth();
+    const { state, actions } = this.props;
+    actions.getPlannings();
   }
 
   render() {
@@ -174,28 +177,16 @@ Header.defaultProps = {
   books: []
 };
 
-const mapStateToProps = state => {
+function mapStateToProps(state) {
   return {
-    books: state.books,
-    auth: state.auth
-  }
-};
+    state: state
+  };
+}
 
-const mapDispatchToProps = dispatch => {
+function mapDispatchToProps(dispatch) {
   return {
-    handleBookSubmit: (book) => {
-      dispatch(addBook(book));
-    },
-    handleBookDelete: (book) => {
-      dispatch(deleteBook(book));
-    },
-    createCognitoAuth: () => {
-      dispatch(createCognitoAuth());
-    },
-    login: () => {
-      dispatch(login());
-    }
-  }
-};
+    actions: bindActionCreators(appActions.actions, dispatch)
+  };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

@@ -22,24 +22,34 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./assets/vendor/nucleo/css/nucleo.css";
 import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
-import authStore from "./stores/AuthStore.jsx"
-import PrivateRoute from "./PrivateRoute.jsx";
 import {applyMiddleware, createStore} from "redux";
 import logger from "redux-logger";
 import bookState from "./reducers";
 import AdminLayout from "./layouts/Admin.jsx";
-import AuthLayout from "./layouts/Auth.jsx";
+import saga from 'redux-saga';
+import sagaRoot from './sagas';
 import {Provider} from "react-redux";
 
 
-const stores = {
-    authStore
-};
+// The middlewares which will be used in this App
+const middlewares = [];
+// Initialize the reducers
+
+// Initialize the saga middleware
+const sagaMiddleware = saga();
+
+middlewares.push(sagaMiddleware);
+if (process.env.NODE_ENV === 'development') {
+    middlewares.push(logger);
+} else {
+    middlewares.push(logger);
+}
 
 const store = createStore(
     bookState,
-    applyMiddleware(logger)
+    applyMiddleware(...middlewares)
 );
+sagaMiddleware.run(sagaRoot);
 
 ReactDOM.render(
   <Provider store={store}>

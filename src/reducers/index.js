@@ -1,12 +1,12 @@
 import {combineReducers} from "redux";
 import {routerReducer} from "react-router-redux";
 import books from "./books";
-import auth from "./auth";
+import plannings from './plannings';
 
 const bookState = combineReducers({
     routing: routerReducer,
     books,
-    auth
+    plannings
 });
 
 export default bookState;
