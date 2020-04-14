@@ -3,8 +3,6 @@ import * as types from "../actions/types";
 
 export function* handleApiRequest(action) {
     console.log('Entered');
-    debugger;
-
 
 }
 

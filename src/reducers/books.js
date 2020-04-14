@@ -13,13 +13,10 @@ const booksReducer = (state = initialBooks, action) => {
             const newState = [...state];
             newState.push(newBook);
             return newState;
-            break;
 
         case types.DELETE_BOOK:
             const id2Remove = action.payload.id;
             return state.filter(e => e.id !== id2Remove);
-            break;
-
         default:
             return state;
     }
