@@ -24,6 +24,8 @@ import {addBook, deleteBook} from "../../actions/books";
 import * as appActions from "../../actions";
 import plannings from "../../reducers/plannings";
 import { bindActionCreators } from 'redux';
+import {call} from "@redux-saga/core/effects";
+import {api} from "../../services";
 
 class Header extends React.Component {
 
@@ -34,7 +36,11 @@ class Header extends React.Component {
 
   componentDidMount(): void {
     const { state, actions } = this.props;
-    actions.getPlannings();
+    // this.props.actions.getPlannings();
+    this.props.actions.callAPI({
+      type: 'USER',
+      method: 'post'
+    });
   }
 
   render() {

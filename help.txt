@@ -1,0 +1,10 @@
+https://github.com/husm/react-native-saga/blob/master/app/sagas/apiTester.js
+
+
+https://github.com/andresmijares/async-redux-saga/blob/master/src/sagas/index.js
+
+
+https://github.com/Lavitr/React-Redux-SAGA-tutorial-APP/blob/master/src/sagas/index.js
+
+
+https://github.com/redux-saga/redux-saga/blob/master/examples/shopping-cart/src/components/Cart.js

@@ -19,6 +19,7 @@ export default function plannings(state = initialState, action = {}) {
         case types.SUCCESS_PLANNINGS:
             return {
                 ...state,
+                plannings: action.payload,
                 loading: false,
                 error: false
             };
