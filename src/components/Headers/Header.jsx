@@ -20,12 +20,9 @@ import React from "react";
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
 import {connect} from "react-redux";
-import {addBook, deleteBook} from "../../actions/books";
+
 import * as appActions from "../../actions";
-import plannings from "../../reducers/plannings";
 import { bindActionCreators } from 'redux';
-import {call} from "@redux-saga/core/effects";
-import {api} from "../../services";
 
 class Header extends React.Component {
 
@@ -38,8 +35,14 @@ class Header extends React.Component {
     const { state, actions } = this.props;
     // this.props.actions.getPlannings();
     this.props.actions.callAPI({
-      type: 'USER',
-      method: 'post'
+      type: 'CATEGORY',
+      method: 'get',
+      config: {
+        data: {},
+        headers:{},
+        endpoint: 'categories',
+        arguments: ''
+      }
     });
   }
 
@@ -178,10 +181,6 @@ class Header extends React.Component {
   }
 
 }
-
-Header.defaultProps = {
-  books: []
-};
 
 function mapStateToProps(state) {
   return {

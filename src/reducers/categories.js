@@ -8,22 +8,22 @@ const initialState = {
     message: null
 };
 
-export default function plannings(state = initialState, action = {}) {
+export default function categories(state = initialState, action = {}) {
     switch (action.type) {
-        case types.PLANNING['GET']:
+        case types.CATEGORY['GET']:
             return {
                 ...state,
                 loading: true,
                 error: false
             };
-        case types.PLANNING['GET_SUCCESS']:
+        case types.CATEGORY['GET_SUCCESS']:
             return {
                 ...state,
                 data: action.payload,
                 loading: false,
                 error: false
             };
-        case types.PLANNING['GET_ERROR']:
+        case types.CATEGORY['GET_ERROR']:
             return {
                 ...state,
                 loading: false,
