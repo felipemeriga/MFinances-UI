@@ -23,6 +23,7 @@ import {connect} from "react-redux";
 
 import * as appActions from "../../actions";
 import { bindActionCreators } from 'redux';
+import {PropTypes} from 'prop-types';
 
 class Header extends React.Component {
 
@@ -182,6 +183,7 @@ class Header extends React.Component {
 
 }
 
+
 function mapStateToProps(state) {
   return {
     state: state
@@ -194,4 +196,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+
+Header.defaultProps = {
+};
+
+Header.propTypes = {
+  state: PropTypes.object,
+  actions: PropTypes.object
+};

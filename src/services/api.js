@@ -1,4 +1,4 @@
-import axios from "axios"
+import axios from "axios";
 
 const API_ROOT = 'http://localhost:8080/api/';
 // Fetches an API response and normalizes the result JSON according to schema.
@@ -17,8 +17,8 @@ export function callApi(payload) {
         headers: payload.config.headers
     }) .then(response => {
         if (!response.status === 200 && !response.status === 204) {
-            return Promise.reject(response)
+            return Promise.reject(response);
         }
         return Promise.resolve(response.data);
-    })
+    });
 }

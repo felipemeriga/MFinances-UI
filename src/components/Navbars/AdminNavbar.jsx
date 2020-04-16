@@ -23,17 +23,12 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   DropdownToggle,
-  Form,
-  FormGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
-  InputGroup,
   Navbar,
   Nav,
   Container,
   Media
 } from "reactstrap";
+import {PropTypes} from 'prop-types';
 
 class AdminNavbar extends React.Component {
   render() {
@@ -101,3 +96,10 @@ class AdminNavbar extends React.Component {
 }
 
 export default AdminNavbar;
+
+AdminNavbar.defaultProps = {
+};
+
+AdminNavbar.propTypes = {
+  brandText: PropTypes.string
+};

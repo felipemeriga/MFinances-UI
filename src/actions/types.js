@@ -17,7 +17,7 @@ const ERROR = 'ERROR';
 function createRequestTypes(base) {
     let obj = [GET, DELETE, PUT, POST].reduce((acc, type) => {
         acc[type] = `${base}_${type}`;
-        return acc
+        return acc;
     }, {});
 
     Object.keys(obj).forEach(function(key) {
@@ -30,5 +30,3 @@ function createRequestTypes(base) {
 export const USER = createRequestTypes('USER');
 export const CATEGORY = createRequestTypes('CATEGORY');
 export const PLANNING = createRequestTypes('PLANNING');
-
-console.log(CATEGORY);

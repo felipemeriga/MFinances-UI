@@ -24,11 +24,14 @@ import AdminNavbar from "../components/Navbars/AdminNavbar.jsx";
 import AdminFooter from "../components/Footers/AdminFooter.jsx";
 import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import routes from "../routes.js";
+import {PropTypes} from 'prop-types';
+
 
 class Admin extends React.Component {
   componentDidUpdate(e) {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
+    // eslint-disable-next-line react/no-string-refs
     this.refs.mainContent.scrollTop = 0;
   }
   getRoutes = routes => {
@@ -70,6 +73,7 @@ class Admin extends React.Component {
             imgAlt: "..."
           }}
         />
+        {/* eslint-disable-next-line react/no-string-refs */}
         <div className="main-content" ref="mainContent">
           <AdminNavbar
             {...this.props}
@@ -87,5 +91,13 @@ class Admin extends React.Component {
     );
   }
 }
+
+Admin.defaultProps = {
+  routes: [{}]
+};
+
+Admin.propTypes = {
+  location: PropTypes.object
+};
 
 export default Admin;

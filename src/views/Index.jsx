@@ -67,7 +67,7 @@ class Index extends React.Component {
     setTimeout(() => wow(), 1000);
     // this.chartReference.update();
   };
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     if (window.Chart) {
       parseOptions(Chart, chartOptions());
     }

@@ -12,7 +12,7 @@ export function* handleApiRequest(action) {
     }
     catch (error) {
         debugger;
-        yield put({type: currentTypes[action.payload.method.toUpperCase() + '_ERROR'], error})
+        yield put({type: currentTypes[action.payload.method.toUpperCase() + '_ERROR'], error});
     }
 }
 
