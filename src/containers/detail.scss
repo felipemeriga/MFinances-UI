@@ -1,0 +1,95 @@
+.extend-main-content{
+  min-height: 100vh;
+}
+
+.proper-size{
+  color: #14ce15;
+}
+
+.medium-size {
+  color: #ffb92b;
+}
+
+.warning-size {
+  color: #ff1f2d;
+}
+
+.margin-bottom-cards {
+  margin-bottom: 1rem;
+}
+
+.text-center-project-metrics {
+  text-align: center;
+}
+
+.fit-description-in-card {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.badge-project {
+  justify-content: center;
+  text-align: center;
+}
+
+.badge-size{
+  width: .625rem;
+  height: .625rem;
+}
+
+.successful-builds {
+  background-color: #14ce15;
+}
+
+.canceled-builds {
+  background-color: #ffb92b;
+}
+
+.failed-builds {
+  background-color: #ff1f2d;
+}
+
+.card-max-height {
+   height: 100%;
+}
+
+// Use this class for making the pagination of the table on the bottom of div
+.pagination-on-bottom {
+  margin-top: auto;
+}
+
+.info-position {
+  flex-direction: row-reverse;
+}
+
+.standard {
+  display: flex;
+}
+
+.adjust-gauge {
+  margin-top: calc(10vh - 1px);
+}
+
+.row-inside-tab {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.padding-on-tab {
+  padding-bottom: 1rem;
+}
+
+.tab-background {
+  background-color: #fffcf2;
+}
+
+
+.dropdown-position {
+  display: flex;
+  flex-direction: row;
+}
+
+.dropdown-title-position {
+  display: flex;
+  flex-direction: row-reverse;
+}

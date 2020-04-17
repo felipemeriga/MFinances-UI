@@ -22,6 +22,8 @@ import Register from "./views/examples/Register.jsx";
 import Login from "./views/examples/Login.jsx";
 import Tables from "./views/examples/Tables.jsx";
 import Icons from "./views/examples/Icons.jsx";
+import Detail from "./containers/Detail";
+import Category from "./components/Category/Category";
 
 var routes = [
   {
@@ -44,6 +46,13 @@ var routes = [
     icon: "ni ni-chart-bar-32 text-pink",
     component: Register,
     layout: "/auth"
+  },
+  {
+    path: "/categories",
+    name: "Categories",
+    icon: "ni ni-chart-bar-32 text-pink",
+    component: Category,
+    layout: "/admin"
   },
   {
     path: "/icons",
