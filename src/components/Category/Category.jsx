@@ -24,9 +24,9 @@ class Category extends React.Component {
 
     getMainContent (): React.ReactDOM {
         const columns=[
-            { title: 'ID', field: 'id' },
+            { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Name', field: 'name' },
-            { title: 'Created Date', field: 'createdWhen' }
+            { title: 'Created Date', field: 'createdWhen', type: 'date', editable: 'never'}
         ];
         return (
             <>

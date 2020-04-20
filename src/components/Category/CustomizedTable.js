@@ -8,7 +8,6 @@ export default class CustomizedTable extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(ENDPOINTS[this.props.type]);
     }
 
     UNSAFE_componentWillMount (): void {
@@ -25,7 +24,6 @@ export default class CustomizedTable extends React.Component {
     }
 
     handleChangePage = (e,page) => {
-        console.log(page);
         this.props.callApi({
             type: this.props.type,
             method: 'get',
@@ -59,9 +57,49 @@ export default class CustomizedTable extends React.Component {
                 columns={this.props.columns}
                 data={this.props.information.data.content}
                 options={{
+                    actionsColumnIndex: -1,
                     emptyRowsWhenPaging: false,
                     showTitle: false,
-                    sorting: true
+                    sorting: true,
+                    selection: true
+                }}
+                actions={[
+                    {
+                        tooltip: 'Remove All Selected Categories',
+                        icon: 'delete',
+                        onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
+                    }
+                ]}
+
+
+                editable={{
+                    onRowAdd: newData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                {
+                                    console.log(newData);
+                                }
+                                resolve();
+                            }, 1000);
+                        }),
+                    onRowUpdate: (newData, oldData) =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                {
+
+                                }
+                                resolve();
+                            }, 1000);
+                        }),
+                    onRowDelete: oldData =>
+                        new Promise((resolve, reject) => {
+                            setTimeout(() => {
+                                {
+
+                                }
+                                resolve();
+                            }, 1000);
+                        }),
                 }}
                 components={{
                     Pagination: props => (
