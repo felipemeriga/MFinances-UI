@@ -2,7 +2,19 @@ import * as types from "../actions/types";
 
 
 const initialState = {
-    data: {},
+    data: {
+        content: [],
+        pageable: {},
+        totalElements: 0,
+        last: false,
+        totalPages: 1,
+        size: 5,
+        number: 0,
+        first: true,
+        sort: {},
+        numberOfElements: 0,
+        empty: false
+    },
     loading: false,
     error: null,
     message: null

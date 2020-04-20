@@ -33,18 +33,18 @@ class Header extends React.Component {
   }
 
   componentDidMount(): void {
-    const { state, actions } = this.props;
-    // this.props.actions.getPlannings();
-    this.props.actions.callAPI({
-      type: 'CATEGORY',
-      method: 'get',
-      config: {
-        data: {},
-        headers:{},
-        endpoint: 'categories',
-        arguments: ''
-      }
-    });
+    // const { state, actions } = this.props;
+    // // this.props.actions.getPlannings();
+    // this.props.actions.callAPI({
+    //   type: 'CATEGORY',
+    //   method: 'get',
+    //   config: {
+    //     data: {},
+    //     headers:{},
+    //     endpoint: 'categories',
+    //     arguments: ''
+    //   }
+    // });
   }
 
   render() {

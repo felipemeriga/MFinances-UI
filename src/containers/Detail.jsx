@@ -4,7 +4,6 @@ import { PropTypes } from 'prop-types';
 import Row from 'reactstrap/es/Row';
 import './detail.scss';
 import Col from 'reactstrap/es/Col';
-import Description from "./Description";
 
 class Detail extends React.Component {
 

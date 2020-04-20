@@ -30,3 +30,9 @@ function createRequestTypes(base) {
 export const USER = createRequestTypes('USER');
 export const CATEGORY = createRequestTypes('CATEGORY');
 export const PLANNING = createRequestTypes('PLANNING');
+export const ENDPOINTS = {
+  USER: 'users',
+  CATEGORY: 'categories',
+  PLANNING: 'plannings'
+};
+
