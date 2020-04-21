@@ -41,7 +41,8 @@ export default function categories(state = initialState, action = {}) {
                 ...state,
                 data: initialState.data,
                 loading: false,
-                error: true
+                error: true,
+                message: action.payload.apierror.message
             };
         case types.CATEGORY['POST']:
             return {
@@ -84,6 +85,22 @@ export default function categories(state = initialState, action = {}) {
                 loading: false,
                 error: true,
                 message: action.payload.apierror.message
+            };
+        case types.CATEGORY['DELETE']:
+            return {
+                ...state,
+                selected: action.payload,
+                loading: true,
+                error: false
+            };
+        case types.CATEGORY['DELETE_SUCCESS']:
+            const deleteIndex = state.data.content.findIndex(element => element.id === state.selected.id);
+            state.data.content.splice(deleteIndex,1);
+            console.log(state.data.content);
+            return {
+                ...state,
+                loading: false,
+                error: true
             };
         default:
             return state;

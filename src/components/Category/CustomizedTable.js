@@ -75,6 +75,20 @@ export default class CustomizedTable extends React.Component {
         });
     };
 
+    handleDeleteRow = (data) => {
+        console.log(data);
+        this.props.callApi({
+            type: this.props.type,
+            method: 'delete',
+            config: {
+                data: data,
+                headers:{},
+                endpoint: `${ENDPOINTS[this.props.type]}/${data.id}`,
+                arguments: ''
+            }
+        });
+    };
+
     render() {
         return (
             <MaterialTable
@@ -121,7 +135,7 @@ export default class CustomizedTable extends React.Component {
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
                                 {
-
+                                    this.handleDeleteRow(oldData);
                                 }
                                 resolve();
                             }, 1000);
