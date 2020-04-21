@@ -43,6 +43,26 @@ export default function categories(state = initialState, action = {}) {
                 loading: false,
                 error: true
             };
+        case types.CATEGORY['POST']:
+            return {
+                ...state,
+                loading: true,
+                error: false
+            };
+        case types.CATEGORY['POST_SUCCESS']:
+            // state.data.content.push(action.payload);
+            return {
+                ...state,
+                loading: false,
+                error: true
+            };
+        case types.CATEGORY['POST_ERROR']:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+                message: action.payload.apierror.message
+            };
         case types.CATEGORY['PUT']:
             return {
                 ...state,

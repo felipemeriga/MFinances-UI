@@ -62,6 +62,19 @@ export default class CustomizedTable extends React.Component {
         });
     };
 
+    handleCreateRow = (data) => {
+        this.props.callApi({
+            type: this.props.type,
+            method: 'post',
+            config: {
+                data: data,
+                headers:{},
+                endpoint: ENDPOINTS[this.props.type],
+                arguments: ''
+            }
+        });
+    };
+
     render() {
         return (
             <MaterialTable
@@ -90,7 +103,7 @@ export default class CustomizedTable extends React.Component {
                         new Promise((resolve, reject) => {
                             setTimeout(() => {
                                 {
-                                    console.log(newData);
+                                    this.handleCreateRow(newData);
                                 }
                                 resolve();
                             }, 1000);
