@@ -26,7 +26,7 @@ class Category extends React.Component {
         const columns=[
             { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Name', field: 'name' },
-            { title: 'Created Date', field: 'createdWhen', type: 'date', editable: 'never'}
+            { title: 'Last Updated', field: 'updatedWhen', type: 'datetime', editable: 'never'}
         ];
         return (
             <>

@@ -11,11 +11,12 @@ export function callApi(payload) {
         fullUrl = fullUrl + '?' + requestArgs;
     }
     return axios({
-        method: 'get',
+        method: payload.method,
+        crossDomain: true,
         url: fullUrl,
         data: payload.config.data,
         headers: payload.config.headers
-    }) .then(response => {
+    }).then(response => {
         if (!response.status === 200 && !response.status === 204) {
             return Promise.reject(response);
         }

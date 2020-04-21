@@ -43,14 +43,14 @@ var routes = [
   {
     path: "/plannings",
     name: "Plannings",
-    icon: "ni ni-chart-bar-32 text-pink",
+    icon: "ni ni-chart-bar-32 text-red",
     component: Register,
     layout: "/auth"
   },
   {
     path: "/categories",
     name: "Categories",
-    icon: "ni ni-chart-bar-32 text-pink",
+    icon: "ni ni-album-2 text-info",
     component: Category,
     layout: "/admin"
   },
