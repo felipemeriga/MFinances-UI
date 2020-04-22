@@ -17,26 +17,26 @@ const initialState = {
     },
     selected: {},
     loading: false,
-    error: null,
+    error: false,
     message: ""
 };
 
-export default function categories(state = initialState, action = {}) {
+export default function categoryTable(state = initialState, action = {}) {
     switch (action.type) {
-        case types.CATEGORY['GET']:
+        case types.CATEGORY_TABLE['GET']:
             return {
                 ...state,
                 loading: true,
                 error: false
             };
-        case types.CATEGORY['GET_SUCCESS']:
+        case types.CATEGORY_TABLE['GET_SUCCESS']:
             return {
                 ...state,
                 data: action.payload,
                 loading: false,
                 error: false
             };
-        case types.CATEGORY['GET_ERROR']:
+        case types.CATEGORY_TABLE['GET_ERROR']:
             return {
                 ...state,
                 data: initialState.data,
@@ -44,34 +44,34 @@ export default function categories(state = initialState, action = {}) {
                 error: true,
                 message: action.payload.apierror.message
             };
-        case types.CATEGORY['POST']:
+        case types.CATEGORY_TABLE['POST']:
             return {
                 ...state,
                 loading: true,
                 error: false
             };
-        case types.CATEGORY['POST_SUCCESS']:
+        case types.CATEGORY_TABLE['POST_SUCCESS']:
             // state.data.content.push(action.payload);
             return {
                 ...state,
                 loading: false,
                 error: true
             };
-        case types.CATEGORY['POST_ERROR']:
+        case types.CATEGORY_TABLE['POST_ERROR']:
             return {
                 ...state,
                 loading: false,
                 error: true,
                 message: action.payload.apierror.message
             };
-        case types.CATEGORY['PUT']:
+        case types.CATEGORY_TABLE['PUT']:
             return {
                 ...state,
                 selected: action.payload,
                 loading: true,
                 error: false
             };
-        case types.CATEGORY['PUT_SUCCESS']:
+        case types.CATEGORY_TABLE['PUT_SUCCESS']:
             const elementsIndex = state.data.content.findIndex(element => element.id === action.payload.id);
             state.data.content[elementsIndex] = action.payload;
             return {
@@ -79,24 +79,23 @@ export default function categories(state = initialState, action = {}) {
                 loading: false,
                 error: true
             };
-        case types.CATEGORY['PUT_ERROR']:
+        case types.CATEGORY_TABLE['PUT_ERROR']:
             return {
                 ...state,
                 loading: false,
                 error: true,
                 message: action.payload.apierror.message
             };
-        case types.CATEGORY['DELETE']:
+        case types.CATEGORY_TABLE['DELETE']:
             return {
                 ...state,
                 selected: action.payload,
                 loading: true,
                 error: false
             };
-        case types.CATEGORY['DELETE_SUCCESS']:
+        case types.CATEGORY_TABLE['DELETE_SUCCESS']:
             const deleteIndex = state.data.content.findIndex(element => element.id === state.selected.id);
             state.data.content.splice(deleteIndex,1);
-            console.log(state.data.content);
             return {
                 ...state,
                 loading: false,

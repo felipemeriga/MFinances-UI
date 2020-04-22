@@ -41,7 +41,7 @@ class Header extends React.Component {
     //   config: {
     //     data: {},
     //     headers:{},
-    //     endpoint: 'categories',
+    //     endpoint: 'categoryTable',
     //     arguments: ''
     //   }
     // });

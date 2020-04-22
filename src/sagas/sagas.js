@@ -11,7 +11,6 @@ export function* handleApiRequest(action) {
         yield put({type: currentTypes[action.payload.method.toUpperCase() + '_SUCCESS'], payload: request});
     }
     catch (error) {
-        debugger;
         yield put({type: currentTypes[action.payload.method.toUpperCase() + '_ERROR'], payload: error.response.data});
     }
 }

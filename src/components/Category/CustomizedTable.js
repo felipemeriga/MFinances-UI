@@ -3,6 +3,13 @@ import { TablePagination } from '@material-ui/core';
 import React from 'react';
 import {PropTypes} from "prop-types";
 import {ENDPOINTS} from "../../actions/types";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+
 
 export default class CustomizedTable extends React.Component {
 
@@ -91,6 +98,7 @@ export default class CustomizedTable extends React.Component {
 
     render() {
         return (
+            <>
             <MaterialTable
                 isLoading={this.props.information.loading}
                 onChangeRowsPerPage={pageSize => this.handleChangeRowPerPage(pageSize)}
@@ -107,7 +115,8 @@ export default class CustomizedTable extends React.Component {
                     {
                         tooltip: 'Remove All Selected Categories',
                         icon: 'delete',
-                        onClick: (evt, data) => alert('You want to delete ' + data.length + ' rows')
+                        onClick: (evt, data) => {
+                        }
                     }
                 ]}
 
@@ -156,6 +165,31 @@ export default class CustomizedTable extends React.Component {
                     ),
                 }}
             />
+                {/*<Dialog*/}
+                {/*    open={true}*/}
+                {/*    aria-labelledby="alert-dialog-title"*/}
+                {/*    aria-describedby="alert-dialog-description"*/}
+                {/*>*/}
+                {/*    <DialogTitle id="alert-dialog-title">{"Delete selected items?"}</DialogTitle>*/}
+                {/*    <DialogContent>*/}
+                {/*        <DialogContentText id="alert-dialog-description">*/}
+                {/*            All the selected items from the table will be deleted, remember that once deleted you can not*/}
+                {/*            get them again.*/}
+                {/*        </DialogContentText>*/}
+                {/*    </DialogContent>*/}
+                {/*    <DialogActions>*/}
+                {/*        <Button  color="primary">*/}
+                {/*            Cancel*/}
+                {/*        </Button>*/}
+                {/*        <Button  color="primary" autoFocus>*/}
+                {/*            Ok*/}
+                {/*        </Button>*/}
+                {/*    </DialogActions>*/}
+
+
+
+                {/*</Dialog>*/}
+            </>
         );
     }
 }

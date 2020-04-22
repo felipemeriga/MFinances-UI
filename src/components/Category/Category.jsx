@@ -25,16 +25,17 @@ class Category extends React.Component {
     getMainContent (): React.ReactDOM {
         const columns=[
             { title: 'ID', field: 'id', editable: 'never' },
-            { title: 'Name', field: 'name' },
+            { title: 'Name', field: 'name'},
             { title: 'Last Updated', field: 'updatedWhen', type: 'datetime', editable: 'never'}
         ];
+
         return (
             <>
                 <Row className="mt-5 row-inside-tab">
                     <Col className="mb-5 mb-xl-0" xl="12">
                         <CustomizedTable columns={columns}
-                                         type={'CATEGORY'}
-                                         information={this.props.categories}
+                                         type={'CATEGORY_TABLE'}
+                                         information={this.props.categoryTable}
                                          callApi={this.props.callApi}/>
                     </Col>
             </Row>
@@ -54,7 +55,7 @@ class Category extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        categories: state.categories
+        categoryTable: state.categoryTable
     };
 }
 
@@ -70,7 +71,7 @@ Category.defaultProps = {
 
 Category.propTypes = {
     children: PropTypes.node,
-    categories: PropTypes.object,
+    categoryTable: PropTypes.object,
     callApi: PropTypes.func
 };
 

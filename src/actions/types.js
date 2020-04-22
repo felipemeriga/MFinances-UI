@@ -14,8 +14,12 @@ const POST = 'POST';
 const SUCCESS = 'SUCCESS';
 const ERROR = 'ERROR';
 
-function createRequestTypes(base) {
-    let obj = [GET, DELETE, PUT, POST].reduce((acc, type) => {
+function createRequestTypes(base, additional) {
+    let options = [GET, DELETE, PUT, POST];
+    if(additional) {
+        options.push(...additional);
+    }
+    let obj = options.reduce((acc, type) => {
         acc[type] = `${base}_${type}`;
         return acc;
     }, {});
@@ -28,11 +32,12 @@ function createRequestTypes(base) {
 }
 
 export const USER = createRequestTypes('USER');
-export const CATEGORY = createRequestTypes('CATEGORY');
-export const PLANNING = createRequestTypes('PLANNING');
+export const CATEGORY_TABLE = createRequestTypes('CATEGORY_TABLE');
+export const PLANNING_TABLE = createRequestTypes('PLANNING_TABLE',['FK_CATEGORY']);
 export const ENDPOINTS = {
   USER: 'users',
+    CATEGORY_TABLE: 'categories',
   CATEGORY: 'categories',
-  PLANNING: 'plannings'
+    PLANNING_TABLE: 'plannings'
 };
 
