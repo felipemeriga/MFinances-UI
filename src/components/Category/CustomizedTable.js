@@ -17,6 +17,7 @@ export default class CustomizedTable extends React.Component {
         super(props);
         this.state = {
             selectedData: [],
+            called: false,
             dialogOpen: false
         };
     }
@@ -135,15 +136,38 @@ export default class CustomizedTable extends React.Component {
         });
     };
 
+    handleSearchChange = (search) => {
+        console.log(search);
+        this.props.callApi({
+            type: this.props.type,
+            method: 'get',
+            config: {
+                reFetch: false,
+                data: {},
+                headers:{},
+                endpoint: ENDPOINTS[this.props.type],
+                arguments: `size=${this.props.information.data.size}&page=${this.props.information.data.number}&search=${search}`
+            }
+        });
+    };
+
     render() {
         return (
             <>
             <MaterialTable
                 isLoading={this.props.information.loading}
                 onChangeRowsPerPage={pageSize => this.handleChangeRowPerPage(pageSize)}
+                onSearchChange={this.handleSearchChange}
                 columns={this.props.columns}
                 data={this.props.information.data.content}
+                localization={{
+                    toolbar: {
+                        searchPlaceholder: 'Search by Name'
+                    }
+                }}
                 options={{
+                    filtering: true,
+                    debounceInterval: 1000,
                     actionsColumnIndex: -1,
                     emptyRowsWhenPaging: false,
                     showTitle: false,
