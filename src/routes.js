@@ -48,7 +48,7 @@ var routes = [
     layout: "/auth"
   },
   {
-    path: "/categoryTable",
+    path: "/categories",
     name: "Categories",
     icon: "ni ni-album-2 text-info",
     component: Category,

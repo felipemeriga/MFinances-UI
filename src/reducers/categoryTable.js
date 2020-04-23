@@ -51,7 +51,6 @@ export default function categoryTable(state = initialState, action = {}) {
                 error: false
             };
         case types.CATEGORY_TABLE['POST_SUCCESS']:
-            // state.data.content.push(action.payload);
             return {
                 ...state,
                 loading: false,
@@ -94,12 +93,17 @@ export default function categoryTable(state = initialState, action = {}) {
                 error: false
             };
         case types.CATEGORY_TABLE['DELETE_SUCCESS']:
-            const deleteIndex = state.data.content.findIndex(element => element.id === state.selected.id);
-            state.data.content.splice(deleteIndex,1);
             return {
                 ...state,
                 loading: false,
                 error: true
+            };
+        case types.CATEGORY_TABLE['DELETE_ERROR']:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+                message: action.payload.apierror.message
             };
         default:
             return state;

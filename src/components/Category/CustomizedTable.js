@@ -15,6 +15,10 @@ export default class CustomizedTable extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            selectedData: [],
+            dialogOpen: false
+        };
     }
 
     UNSAFE_componentWillMount (): void {
@@ -22,6 +26,7 @@ export default class CustomizedTable extends React.Component {
             type: this.props.type,
             method: 'get',
             config: {
+                reFetch: false,
                 data: {},
                 headers:{},
                 endpoint: ENDPOINTS[this.props.type],
@@ -35,6 +40,7 @@ export default class CustomizedTable extends React.Component {
             type: this.props.type,
             method: 'get',
             config: {
+                reFetch: false,
                 data: {},
                 headers:{},
                 endpoint: ENDPOINTS[this.props.type],
@@ -48,6 +54,7 @@ export default class CustomizedTable extends React.Component {
             type: this.props.type,
             method: 'get',
             config: {
+                reFetch: false,
                 data: {},
                 headers:{},
                 endpoint: ENDPOINTS[this.props.type],
@@ -61,6 +68,7 @@ export default class CustomizedTable extends React.Component {
             type: this.props.type,
             method: 'put',
             config: {
+                reFetch: false,
                 data: data,
                 headers:{},
                 endpoint: `${ENDPOINTS[this.props.type]}/${data.id}`,
@@ -74,6 +82,7 @@ export default class CustomizedTable extends React.Component {
             type: this.props.type,
             method: 'post',
             config: {
+                reFetch: true,
                 data: data,
                 headers:{},
                 endpoint: ENDPOINTS[this.props.type],
@@ -83,16 +92,46 @@ export default class CustomizedTable extends React.Component {
     };
 
     handleDeleteRow = (data) => {
-        console.log(data);
         this.props.callApi({
             type: this.props.type,
             method: 'delete',
             config: {
+                reFetch: true,
                 data: data,
                 headers:{},
                 endpoint: `${ENDPOINTS[this.props.type]}/${data.id}`,
                 arguments: ''
             }
+        });
+    };
+
+    handleDeleteRows = () => {
+        let ids = '';
+        this.state.selectedData.filter(obj=>{
+            ids = `${ids},${obj.id}`;
+        });
+        ids = ids.substring(1);
+        this.props.callApi({
+            type: this.props.type,
+            method: 'delete',
+            config: {
+                reFetch: true,
+                data: {},
+                headers:{},
+                endpoint: `${ENDPOINTS[this.props.type]}/delete/${ids}`,
+                arguments: ''
+            }
+        });
+        this.setState({
+            selectedData: {},
+            dialogOpen: false
+        });
+    };
+
+    onCancelClicked = () => {
+        this.setState({
+            selectedData: {},
+            dialogOpen: false
         });
     };
 
@@ -116,11 +155,13 @@ export default class CustomizedTable extends React.Component {
                         tooltip: 'Remove All Selected Categories',
                         icon: 'delete',
                         onClick: (evt, data) => {
+                            this.setState({
+                                selectedData: data,
+                                dialogOpen: true
+                            });
                         }
                     }
                 ]}
-
-
                 editable={{
                     onRowAdd: newData =>
                         new Promise((resolve, reject) => {
@@ -165,30 +206,27 @@ export default class CustomizedTable extends React.Component {
                     ),
                 }}
             />
-                {/*<Dialog*/}
-                {/*    open={true}*/}
-                {/*    aria-labelledby="alert-dialog-title"*/}
-                {/*    aria-describedby="alert-dialog-description"*/}
-                {/*>*/}
-                {/*    <DialogTitle id="alert-dialog-title">{"Delete selected items?"}</DialogTitle>*/}
-                {/*    <DialogContent>*/}
-                {/*        <DialogContentText id="alert-dialog-description">*/}
-                {/*            All the selected items from the table will be deleted, remember that once deleted you can not*/}
-                {/*            get them again.*/}
-                {/*        </DialogContentText>*/}
-                {/*    </DialogContent>*/}
-                {/*    <DialogActions>*/}
-                {/*        <Button  color="primary">*/}
-                {/*            Cancel*/}
-                {/*        </Button>*/}
-                {/*        <Button  color="primary" autoFocus>*/}
-                {/*            Ok*/}
-                {/*        </Button>*/}
-                {/*    </DialogActions>*/}
-
-
-
-                {/*</Dialog>*/}
+                <Dialog
+                    open={this.state.dialogOpen}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Delete selected items?"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            All the selected items from the table will be deleted, remember that once deleted you can not
+                            get them again.
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.onCancelClicked} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={this.handleDeleteRows} color="primary" autoFocus>
+                            Ok
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </>
         );
     }
