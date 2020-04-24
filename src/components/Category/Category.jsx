@@ -4,7 +4,6 @@ import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import {PropTypes} from "prop-types";
 import Detail from "../../containers/Detail";
-import CustomizedTable from "./CustomizedTable";
 import {bindActionCreators} from "redux";
 import * as appActions from "../../actions";
 import {connect} from "react-redux";

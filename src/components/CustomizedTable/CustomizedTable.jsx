@@ -27,17 +27,6 @@ export default class CustomizedTable extends React.Component {
     }
 
     firstComponentFetch = () => {
-        // this.props.callApi({
-        //     type: this.props.type,
-        //     method: 'get',
-        //     config: {
-        //         reFetch: false,
-        //         data: {},
-        //         headers:{},
-        //         endpoint: ENDPOINTS[this.props.type],
-        //         arguments: 'size=5&page=0'
-        //     }
-        // });
         this.props.getAllWithFK({
             type: this.props.type,
             method: 'get',

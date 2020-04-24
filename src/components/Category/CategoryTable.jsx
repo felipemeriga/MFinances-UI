@@ -1,5 +1,6 @@
 import React from "react";
-import CustomizedTable from "./CustomizedTable";
+import CustomizedTable from "../CustomizedTable/CustomizedTable";
+
 
 
 export default class CategoryTable extends CustomizedTable {
