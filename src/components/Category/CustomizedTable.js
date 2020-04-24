@@ -23,9 +23,25 @@ export default class CustomizedTable extends React.Component {
     }
 
     UNSAFE_componentWillMount (): void {
-        this.props.callApi({
+        this.firstComponentFetch();
+    }
+
+    firstComponentFetch = () => {
+        // this.props.callApi({
+        //     type: this.props.type,
+        //     method: 'get',
+        //     config: {
+        //         reFetch: false,
+        //         data: {},
+        //         headers:{},
+        //         endpoint: ENDPOINTS[this.props.type],
+        //         arguments: 'size=5&page=0'
+        //     }
+        // });
+        this.props.getAllWithFK({
             type: this.props.type,
             method: 'get',
+            fkEndpoints: [],
             config: {
                 reFetch: false,
                 data: {},
@@ -34,7 +50,7 @@ export default class CustomizedTable extends React.Component {
                 arguments: 'size=5&page=0'
             }
         });
-    }
+    };
 
     handleChangePage = (e,page) => {
         this.props.callApi({
@@ -158,7 +174,7 @@ export default class CustomizedTable extends React.Component {
                 isLoading={this.props.information.loading}
                 onChangeRowsPerPage={pageSize => this.handleChangeRowPerPage(pageSize)}
                 onSearchChange={this.handleSearchChange}
-                columns={this.props.columns}
+                columns={this.columns}
                 data={this.props.information.data.content}
                 localization={{
                     toolbar: {
@@ -262,6 +278,6 @@ CustomizedTable.defaultProps = {
 CustomizedTable.propTypes = {
     information: PropTypes.object,
     callApi: PropTypes.func,
-    columns: PropTypes.arrayOf(PropTypes.object),
-    type: PropTypes.string
+    type: PropTypes.string,
+    getAllWithFK: PropTypes.func,
 };

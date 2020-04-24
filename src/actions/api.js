@@ -7,3 +7,11 @@ export function callAPI(payload) {
         payload: payload
     };
 }
+
+export function getAllWithFK(payload) {
+    return {
+        type: types.GET_ALL_WITH_FK,
+        payload: payload
+    };
+
+}

@@ -1,9 +1,10 @@
 
 import {all} from 'redux-saga/effects';
-import {watchCallApi} from './sagas';
+import {watchCallApi, watchGetAllWithFK} from './sagas';
 
 export default function* rootSaga() {
     yield all([
-        watchCallApi()
+        watchCallApi(),
+        watchGetAllWithFK()
     ]);
 }

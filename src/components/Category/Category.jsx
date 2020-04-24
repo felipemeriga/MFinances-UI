@@ -8,6 +8,7 @@ import CustomizedTable from "./CustomizedTable";
 import {bindActionCreators} from "redux";
 import * as appActions from "../../actions";
 import {connect} from "react-redux";
+import CategoryTable from "./CategoryTable";
 
 
 class Category extends React.Component {
@@ -33,10 +34,13 @@ class Category extends React.Component {
             <>
                 <Row className="mt-5 row-inside-tab">
                     <Col className="mb-5 mb-xl-0" xl="12">
-                        <CustomizedTable columns={columns}
-                                         type={'CATEGORY_TABLE'}
-                                         information={this.props.categoryTable}
-                                         callApi={this.props.callApi}/>
+                        <CategoryTable
+                            columns={columns}
+                            type={'CATEGORY_TABLE'}
+                            information={this.props.categoryTable}
+                            callApi={this.props.callApi}
+                            getAllWithFK={this.props.getAllWithFK}
+                            />
                     </Col>
             </Row>
             </>
@@ -61,7 +65,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        callApi: bindActionCreators(appActions.actions.callAPI, dispatch)
+        callApi: bindActionCreators(appActions.actions.callAPI, dispatch),
+        getAllWithFK: bindActionCreators(appActions.actions.getAllWithFK, dispatch),
     };
 }
 
@@ -72,7 +77,8 @@ Category.defaultProps = {
 Category.propTypes = {
     children: PropTypes.node,
     categoryTable: PropTypes.object,
-    callApi: PropTypes.func
+    callApi: PropTypes.func,
+    getAllWithFK: PropTypes.func,
 };
 
 

@@ -36,6 +36,32 @@ export function* handleApiRequest(action) {
     }
 }
 
+export function* handleGetAllWithFK(action) {
+    const currentTypes = (types[action.payload.type]);
+    const fkEndpoints = action.payload.fkEndpoints;
+    // This object will be the final object delivered when all the apis are fetched, the main key of the object represents
+    // the main content of the table, and the keys related to the ENDPOINTS are each fetched fk.
+    const result = {};
+    try {
+        yield put({type: currentTypes[types.GET_ALL_WITH_FK], payload: action.payload.config.data});
+        const request = yield api.callApi(action.payload);
+        result['main'] = request;
+        for(let i =0; i < fkEndpoints.length; i++) {
+            action.payload.config.endpoint = ENDPOINTS[fkEndpoints[i]];
+            const apiResult = yield api.callApi(action.payload);
+            result[ENDPOINTS[fkEndpoints[i]]] =  apiResult.content;
+        }
+        yield put({type: currentTypes[types.GET_ALL_WITH_FK + '_SUCCESS'], payload: result});
+    }
+    catch (error) {
+        yield put({type: currentTypes[types.GET_ALL_WITH_FK + '_ERROR'], payload: error.response.data});
+    }
+}
+
 export function* watchCallApi() {
     yield takeEvery(types.CALL_API, handleApiRequest);
+}
+
+export function* watchGetAllWithFK() {
+    yield takeEvery(types.GET_ALL_WITH_FK, handleGetAllWithFK);
 }

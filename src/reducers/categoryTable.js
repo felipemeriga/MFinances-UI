@@ -23,6 +23,27 @@ const initialState = {
 
 export default function categoryTable(state = initialState, action = {}) {
     switch (action.type) {
+        case types.CATEGORY_TABLE['GET_ALL_WITH_FK']:
+            return {
+                ...state,
+                loading: true,
+                error: false
+            };
+        case types.CATEGORY_TABLE['GET_ALL_WITH_FK_SUCCESS']:
+            return {
+                ...state,
+                data: action.payload.main,
+                loading: false,
+                error: false
+            };
+        case types.CATEGORY_TABLE['GET_ALL_WITH_FK_ERROR']:
+            return {
+                ...state,
+                data: initialState.data,
+                loading: false,
+                error: true,
+                message: action.payload.apierror.message
+            };
         case types.CATEGORY_TABLE['GET']:
             return {
                 ...state,

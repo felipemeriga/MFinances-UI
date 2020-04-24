@@ -1,12 +1,21 @@
+// A simple GET request
 const GET = 'GET';
+// A simple DELETE request
 const DELETE = 'DELETE';
+// A simple PUT request
 const PUT = 'PUT';
+// A simple POST request
 const POST = 'POST';
+// Used for tables and forms that needs to fetch also all the available FKs, used for fetching the entity to persist
+// it on a table/form and get all the FKs related to that entity
+export const GET_ALL_WITH_FK = 'GET_ALL_WITH_FK';
+// SUCCESS suffix for the types
 const SUCCESS = 'SUCCESS';
+// ERROR suffix for the types
 const ERROR = 'ERROR';
 
 function createRequestTypes(base, additional) {
-    let options = [GET, DELETE, PUT, POST];
+    let options = [GET, DELETE, PUT, POST, GET_ALL_WITH_FK];
     if(additional) {
         options.push(...additional);
     }
@@ -32,13 +41,14 @@ from inside your components all and over again, Sagas will do that for you.
 */
 export const USER = createRequestTypes('USER');
 export const CATEGORY_TABLE = createRequestTypes('CATEGORY_TABLE');
-export const PLANNING_TABLE = createRequestTypes('PLANNING_TABLE',['FK_CATEGORY']);
+export const PLANNING_TABLE = createRequestTypes('PLANNING_TABLE');
 export const CALL_API = 'CALL_API';
 // Those are the endpoints for each type, make sure that the key inside ENDPOINTS, matches with the type name.
 export const ENDPOINTS = {
   USER: 'users',
     CATEGORY_TABLE: 'categories',
   CATEGORY: 'categories',
+    PLANNING: 'plannings',
     PLANNING_TABLE: 'plannings'
 };
 // Those are the selectors for Sagas to get the current state, make sure that the key inside SELECTORS, matches with the type name.
