@@ -1,4 +1,4 @@
-import MaterialTable from 'material-table';
+import MaterialTable, {MTableToolbar} from 'material-table';
 import { TablePagination } from '@material-ui/core';
 import React from 'react';
 import {PropTypes} from "prop-types";
@@ -6,6 +6,7 @@ import {ENDPOINTS} from "../../actions/types";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import { TextField } from "@material-ui/core";
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
@@ -156,6 +157,14 @@ export default class CustomizedTable extends React.Component {
         });
     };
 
+    returnCustomToolbar = (props) => {
+      return (
+          <div>
+              <MTableToolbar {...props} />
+          </div>
+      );
+    };
+
     render() {
         return (
             <>
@@ -233,6 +242,7 @@ export default class CustomizedTable extends React.Component {
                             }
                         />
                     ),
+                    Toolbar: this.returnCustomToolbar
                 }}
             />
                 <Dialog

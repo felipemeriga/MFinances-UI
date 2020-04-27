@@ -1,16 +1,16 @@
 import React from "react";
-import {Card, Container} from "reactstrap";
+import Detail from "../../containers/Detail";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
-import {PropTypes} from "prop-types";
-import Detail from "../../containers/Detail";
+import CategoryTable from "../Category/CategoryTable";
+import PlanningTable from "../Planning/PlanningTable";
 import {bindActionCreators} from "redux";
 import * as appActions from "../../actions";
+import {PropTypes} from "prop-types";
 import {connect} from "react-redux";
-import CategoryTable from "./CategoryTable";
 
 
-class Category extends React.Component {
+class Planning extends React.Component {
 
     constructor(props) {
         super(props);
@@ -27,18 +27,17 @@ class Category extends React.Component {
             <>
                 <Row className="mt-5 row-inside-tab">
                     <Col className="mb-5 mb-xl-0" xl="12">
-                        <CategoryTable
-                            type={'CATEGORY_TABLE'}
-                            information={this.props.categoryTable}
+                        <PlanningTable
+                            type={'PLANNING_TABLE'}
+                            information={this.props.planningTable}
                             callApi={this.props.callApi}
                             getAllWithFK={this.props.getAllWithFK}
-                            />
+                        />
                     </Col>
-            </Row>
+                </Row>
             </>
         );
     }
-
 
     render () {
         return (
@@ -51,7 +50,7 @@ class Category extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        categoryTable: state.categoryTable
+        planningTable: state.planningTable
     };
 }
 
@@ -62,17 +61,14 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
-
-Category.defaultProps = {
+Planning.defaultProps = {
 };
 
-Category.propTypes = {
+Planning.propTypes = {
     children: PropTypes.node,
-    categoryTable: PropTypes.object,
+    planningTable: PropTypes.object,
     callApi: PropTypes.func,
     getAllWithFK: PropTypes.func,
 };
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Category);
+export default connect(mapStateToProps, mapDispatchToProps)(Planning);

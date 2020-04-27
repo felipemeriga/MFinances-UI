@@ -23,6 +23,7 @@ import Login from "./views/examples/Login.jsx";
 import Tables from "./views/examples/Tables.jsx";
 import Icons from "./views/examples/Icons.jsx";
 import Detail from "./containers/Detail";
+import Planning from "./components/Planning/Planning";
 import Category from "./components/Category/Category";
 
 var routes = [
@@ -41,11 +42,11 @@ var routes = [
     layout: "/auth"
   },
   {
-    path: "/planningTable",
+    path: "/plannings",
     name: "Plannings",
     icon: "ni ni-chart-bar-32 text-red",
-    component: Register,
-    layout: "/auth"
+    component: Planning,
+    layout: "/admin"
   },
   {
     path: "/categories",
