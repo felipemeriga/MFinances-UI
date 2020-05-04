@@ -1,4 +1,4 @@
-import MaterialTable, {MTableToolbar} from 'material-table';
+import MaterialTable, {MTableToolbar, MTableEditRow} from 'material-table';
 import { TablePagination } from '@material-ui/core';
 import React from 'react';
 import {PropTypes} from "prop-types";
@@ -75,7 +75,7 @@ export default class CustomizedTable extends React.Component {
             type: this.props.type,
             method: 'put',
             config: {
-                reFetch: false,
+                reFetch: true,
                 data: data,
                 headers:{},
                 endpoint: `${ENDPOINTS[this.props.type]}/${data.id}`,
@@ -180,6 +180,7 @@ export default class CustomizedTable extends React.Component {
                     }
                 }}
                 options={{
+                    search: this.props.enableSearch,
                     filtering: true,
                     debounceInterval: 1000,
                     actionsColumnIndex: -1,
@@ -242,7 +243,7 @@ export default class CustomizedTable extends React.Component {
                             }
                         />
                     ),
-                    Toolbar: this.returnCustomToolbar
+                    Toolbar: this.returnCustomToolbar,
                 }}
             />
                 <Dialog
@@ -279,4 +280,5 @@ CustomizedTable.propTypes = {
     callApi: PropTypes.func,
     type: PropTypes.string,
     getAllWithFK: PropTypes.func,
+    enableSearch: PropTypes.bool
 };

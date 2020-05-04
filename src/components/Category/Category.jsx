@@ -28,6 +28,7 @@ class Category extends React.Component {
                 <Row className="mt-5 row-inside-tab">
                     <Col className="mb-5 mb-xl-0" xl="12">
                         <CategoryTable
+                            enableSearch={true}
                             type={'CATEGORY_TABLE'}
                             information={this.props.categoryTable}
                             callApi={this.props.callApi}

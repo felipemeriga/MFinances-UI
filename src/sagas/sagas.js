@@ -20,7 +20,6 @@ export function* reFetch(payload) {
 }
 
 export function* handleApiRequest(action) {
-
     const currentTypes = (types[action.payload.type]);
     try {
         yield put({type: currentTypes[action.payload.method.toUpperCase()], payload: action.payload.config.data});

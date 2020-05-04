@@ -53,5 +53,6 @@ export const ENDPOINTS = {
 };
 // Those are the selectors for Sagas to get the current state, make sure that the key inside SELECTORS, matches with the type name.
 export const SELECTORS = {
-    CATEGORY_TABLE: 'categoryTable'
+    CATEGORY_TABLE: 'categoryTable',
+    PLANNING_TABLE: 'planningTable'
 };

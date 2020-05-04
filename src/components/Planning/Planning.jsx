@@ -28,6 +28,7 @@ class Planning extends React.Component {
                 <Row className="mt-5 row-inside-tab">
                     <Col className="mb-5 mb-xl-0" xl="12">
                         <PlanningTable
+                            enableSearch={false}
                             type={'PLANNING_TABLE'}
                             information={this.props.planningTable}
                             callApi={this.props.callApi}
