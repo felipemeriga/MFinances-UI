@@ -14,8 +14,9 @@ export default class PlanningTable extends CustomizedTable {
     constructor(props) {
         super(props);
         this.columns=[
-            { title: 'Value', field: 'value', type: 'currency', cellStyle: { textAlign: 'left' }},
-            { title: 'Category', field: 'category.id',
+            { title: 'Value', field: 'value', type: 'currency', initialEditValue: 0,  cellStyle: { textAlign: 'left' }},
+            {
+                title: 'Category', field: 'category.id',
                 render: rowData => (
                     <>
                         <Select
@@ -38,10 +39,10 @@ export default class PlanningTable extends CustomizedTable {
                             value={props.value}
                             onChange={(e) => props.onChange(e.target.value)}
                         >
-                             {
+                            {
                                 this.props.information.categoriesFk.map((prop, key) => {
                                     return (
-                                        <option value={prop.id} key={key} >{prop.name}</option>
+                                        <option value={prop.id} key={key}>{prop.name}</option>
                                     );
                                 })
                             }
@@ -49,15 +50,35 @@ export default class PlanningTable extends CustomizedTable {
                     </>
                 ),
                 customFilterAndSearch: (value, rowData) => {
-                    return rowData.category.name.includes(value) === true ?  rowData : null;
+                    return rowData.category.name.includes(value) === true ? rowData : null;
                 }
+
             }
+
         ];
         this.state = {
             ...this.state,
             selectedMonth: new Date(moment())
         };
     }
+
+    handleCreateRow = (data) => {
+        if(data.category === undefined) {
+            data['category'] = this.props.information.categoriesFk[0];
+        }
+
+        this.props.callApi({
+            type: this.props.type,
+            method: 'post',
+            config: {
+                reFetch: true,
+                data: data,
+                headers:{},
+                endpoint: ENDPOINTS[this.props.type],
+                arguments: ''
+            }
+        });
+    };
 
     firstComponentFetch = () => {
             this.props.getAllWithFK({

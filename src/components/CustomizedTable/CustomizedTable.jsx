@@ -9,7 +9,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import { TextField } from "@material-ui/core";
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Snackbar from '@material-ui/core/Snackbar';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
+import CustomSnackbars from "./CustomSnackbar";
 
 
 export default class CustomizedTable extends React.Component {
@@ -19,7 +22,8 @@ export default class CustomizedTable extends React.Component {
         this.state = {
             selectedData: [],
             called: false,
-            dialogOpen: false
+            dialogOpen: false,
+            error: true
         };
     }
 
@@ -165,108 +169,135 @@ export default class CustomizedTable extends React.Component {
       );
     };
 
+    handleCloseSnackError = () => {
+      this.setState(
+          {...this.state,
+            error: true
+          }
+      );
+    };
+
+    handleSuccessErrorMessages = () => {
+        if(this.props.information.success) {
+            return (
+                <CustomSnackbars open={this.props.information.success}/>
+            );
+        }
+    };
+
     render() {
         return (
             <>
-            <MaterialTable
-                isLoading={this.props.information.loading}
-                onChangeRowsPerPage={pageSize => this.handleChangeRowPerPage(pageSize)}
-                onSearchChange={this.handleSearchChange}
-                columns={this.columns}
-                data={this.props.information.data.content}
-                localization={{
-                    toolbar: {
-                        searchPlaceholder: 'Search by Name'
-                    }
-                }}
-                options={{
-                    search: this.props.enableSearch,
-                    filtering: true,
-                    debounceInterval: 1000,
-                    actionsColumnIndex: -1,
-                    emptyRowsWhenPaging: false,
-                    showTitle: false,
-                    sorting: true,
-                    selection: true
-                }}
-                actions={[
-                    {
-                        tooltip: 'Remove All Selected Categories',
-                        icon: 'delete',
-                        onClick: (evt, data) => {
-                            this.setState({
-                                selectedData: data,
-                                dialogOpen: true
-                            });
+                <MaterialTable
+                    isLoading={this.props.information.loading}
+                    onChangeRowsPerPage={pageSize => this.handleChangeRowPerPage(pageSize)}
+                    onSearchChange={this.handleSearchChange}
+                    columns={this.columns}
+                    data={this.props.information.data.content}
+                    localization={{
+                        toolbar: {
+                            searchPlaceholder: 'Search by Name'
                         }
-                    }
-                ]}
-                editable={{
-                    onRowAdd: newData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                {
-                                    this.handleCreateRow(newData);
-                                }
-                                resolve();
-                            }, 1000);
-                        }),
-                    onRowUpdate: (newData, oldData) =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                {
-                                    this.handleUpdateRow(newData);
-                                }
-                                resolve();
-                            }, 1000);
-                        }),
-                    onRowDelete: oldData =>
-                        new Promise((resolve, reject) => {
-                            setTimeout(() => {
-                                {
-                                    this.handleDeleteRow(oldData);
-                                }
-                                resolve();
-                            }, 1000);
-                        }),
-                }}
-                components={{
-                    Pagination: props => (
-                        <TablePagination
-                            {...props}
-                            rowsPerPageOptions={[5, 10, 20, 30]}
-                            rowsPerPage={this.props.information.data.size}
-                            count={this.props.information.data.totalElements}
-                            page={this.props.information.data.number}
-                            onChangePage={(e, page) =>
-                                this.handleChangePage(e, page)
+                    }}
+                    options={{
+                        search: this.props.enableSearch,
+                        filtering: true,
+                        debounceInterval: 1000,
+                        actionsColumnIndex: -1,
+                        emptyRowsWhenPaging: false,
+                        showTitle: false,
+                        sorting: true,
+                        selection: true
+                    }}
+                    actions={[
+                        {
+                            tooltip: 'Remove All Selected Categories',
+                            icon: 'delete',
+                            onClick: (evt, data) => {
+                                this.setState({
+                                    selectedData: data,
+                                    dialogOpen: true
+                                });
                             }
-                        />
-                    ),
-                    Toolbar: this.returnCustomToolbar,
-                }}
-            />
-                <Dialog
-                    open={this.state.dialogOpen}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                >
-                    <DialogTitle id="alert-dialog-title">{"Delete selected items?"}</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                            All the selected items from the table will be deleted, remember that once deleted you can not
-                            get them again.
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.onCancelClicked} color="primary">
-                            Cancel
-                        </Button>
-                        <Button onClick={this.handleDeleteRows} color="primary" autoFocus>
-                            Ok
-                        </Button>
-                    </DialogActions>
-                </Dialog>
+                        }
+                    ]}
+                    editable={{
+                        onRowAdd: newData =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    {
+                                        this.handleCreateRow(newData);
+                                    }
+                                    resolve();
+                                }, 1000);
+                            }),
+                        onRowUpdate: (newData, oldData) =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    {
+                                        this.handleUpdateRow(newData);
+                                    }
+                                    resolve();
+                                }, 1000);
+                            }),
+                        onRowDelete: oldData =>
+                            new Promise((resolve, reject) => {
+                                setTimeout(() => {
+                                    {
+                                        this.handleDeleteRow(oldData);
+                                    }
+                                    resolve();
+                                }, 1000);
+                            }),
+                    }}
+                    components={{
+                        Pagination: props => (
+                            <TablePagination
+                                {...props}
+                                rowsPerPageOptions={[5, 10, 20, 30]}
+                                rowsPerPage={this.props.information.data.size}
+                                count={this.props.information.data.totalElements}
+                                page={this.props.information.data.number}
+                                onChangePage={(e, page) =>
+                                    this.handleChangePage(e, page)
+                                }
+                            />
+                        ),
+                        Toolbar: this.returnCustomToolbar,
+                        // EditRow: (props) => {
+                        //     return (
+                        //         <MTableEditRow
+                        //             {...props}
+                        //             onEditingApproved={(mode, newData, oldData) => {
+                        //                 debugger;
+                        //             }}
+                        //         />
+                        //     );
+                        // }
+                    }}
+                />
+                    <Dialog
+                        open={this.state.dialogOpen}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">{"Delete selected items?"}</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                All the selected items from the table will be deleted, remember that once deleted you can not
+                                get them again.
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={this.onCancelClicked} color="primary">
+                                Cancel
+                            </Button>
+                            <Button onClick={this.handleDeleteRows} color="primary" autoFocus>
+                                Ok
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                {this.handleSuccessErrorMessages()}
             </>
         );
     }

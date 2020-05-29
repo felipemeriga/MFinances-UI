@@ -17,6 +17,7 @@ const initialState = {
     },
     selected: {},
     loading: false,
+    success: false,
     error: false,
     message: ""
 };
@@ -97,6 +98,8 @@ export default function categoryTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: false,
+                success: true,
+                message: `Success saving category with id: ${action.payload.id}`,
                 error: true
             };
         case types.CATEGORY_TABLE['PUT_ERROR']:
