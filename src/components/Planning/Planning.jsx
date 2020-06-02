@@ -33,6 +33,7 @@ class Planning extends React.Component {
                             information={this.props.planningTable}
                             callApi={this.props.callApi}
                             getAllWithFK={this.props.getAllWithFK}
+                            validateCategoryAlreadyExistsInMonth={this.props.validateCategoryAlreadyExistsInMonth}
                         />
                     </Col>
                 </Row>
@@ -59,6 +60,7 @@ function mapDispatchToProps(dispatch) {
     return {
         callApi: bindActionCreators(appActions.actions.callAPI, dispatch),
         getAllWithFK: bindActionCreators(appActions.actions.getAllWithFK, dispatch),
+        validateCategoryAlreadyExistsInMonth: bindActionCreators(appActions.actions.validateCategoryAlreadyExistsInMonth, dispatch)
     };
 }
 
@@ -70,6 +72,7 @@ Planning.propTypes = {
     planningTable: PropTypes.object,
     callApi: PropTypes.func,
     getAllWithFK: PropTypes.func,
+    validateCategoryAlreadyExistsInMonth: PropTypes.func
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Planning);

@@ -70,12 +70,15 @@ export default function categoryTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: true,
+                success: false,
                 error: false
             };
         case types.CATEGORY_TABLE['POST_SUCCESS']:
             return {
                 ...state,
                 loading: false,
+                success: true,
+                message: `Success creating category with id: ${action.payload.id}`,
                 error: true
             };
         case types.CATEGORY_TABLE['POST_ERROR']:
@@ -88,6 +91,7 @@ export default function categoryTable(state = initialState, action = {}) {
         case types.CATEGORY_TABLE['PUT']:
             return {
                 ...state,
+                success: false,
                 selected: action.payload,
                 loading: true,
                 error: false
@@ -100,13 +104,14 @@ export default function categoryTable(state = initialState, action = {}) {
                 loading: false,
                 success: true,
                 message: `Success saving category with id: ${action.payload.id}`,
-                error: true
+                error: false
             };
         case types.CATEGORY_TABLE['PUT_ERROR']:
             return {
                 ...state,
                 loading: false,
                 error: true,
+                success: false,
                 message: action.payload.apierror.message
             };
         case types.CATEGORY_TABLE['DELETE']:
@@ -114,13 +119,16 @@ export default function categoryTable(state = initialState, action = {}) {
                 ...state,
                 selected: action.payload,
                 loading: true,
+                success: false,
                 error: false
             };
         case types.CATEGORY_TABLE['DELETE_SUCCESS']:
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: false,
+                success: true,
+                message: 'Done in deleting item(s)'
             };
         case types.CATEGORY_TABLE['DELETE_ERROR']:
             return {

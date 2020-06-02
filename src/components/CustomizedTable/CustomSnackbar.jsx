@@ -27,9 +27,9 @@ export default class CustomSnackbars extends React.Component {
 
     render() {
         return (
-            <Snackbar open={this.state.open} autoHideDuration={6000} onClose={this.handleClose}
+            <Snackbar open={this.state.open} autoHideDuration={4000} onClose={this.handleClose}
                       anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
-                <Alert severity='success'>AEEEEE</Alert>
+                <Alert severity={this.props.severity}>{this.props.message}</Alert>
             </Snackbar>
         );
     }
@@ -42,4 +42,6 @@ CustomSnackbars.defaultProps = {
 
 CustomSnackbars.propTypes = {
     open: PropTypes.bool,
+    message: PropTypes.string,
+    severity: PropTypes.string
 };

@@ -18,6 +18,8 @@ const initialState = {
     },
     selectedMonth: new Date(moment()),
     selected: {},
+    alreadyExistingWithinMonth: {},
+    categoryAlreadyExists: false,
     categoriesFk: [],
     loading: false,
     error: false,
@@ -67,12 +69,36 @@ export default function planningTable(state = initialState, action = {}) {
                 loading: false,
                 error: true
             };
+        case types.PLANNING_TABLE['POST']:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+                error: false,
+                categoryAlreadyExists: false,
+            };
+        case types.PLANNING_TABLE['POST_SUCCESS']:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                message: `Success creating planning with id: ${action.payload.id}`,
+                error: true
+            };
+        case types.PLANNING_TABLE['POST_ERROR']:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+                message: action.payload.apierror.message
+            };
         case types.PLANNING_TABLE['PUT']:
             return {
                 ...state,
                 selected: action.payload,
                 loading: true,
-                error: false
+                error: false,
+                success: false
             };
         case types.PLANNING_TABLE['PUT_SUCCESS']:
             const elementsIndex = state.data.content.findIndex(element => element.id === action.payload.id);
@@ -80,15 +106,58 @@ export default function planningTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: false,
-                error: true
+                error: true,
+                success: true,
+                message: `Success saving Planning with id: ${action.payload.id}`,
             };
         case types.PLANNING_TABLE['PUT_ERROR']:
             return {
                 ...state,
                 loading: false,
                 error: true,
+                success: false,
                 message: action.payload.apierror.message
             };
+        case types.PLANNING_TABLE['DELETE']:
+            return {
+                ...state,
+                selected: action.payload,
+                loading: true,
+                success: false,
+                error: false
+            };
+        case types.PLANNING_TABLE['DELETE_SUCCESS']:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                success: true,
+                message: 'Done in deleting item(s)'
+            };
+        case types.PLANNING_TABLE['DELETE_ERROR']:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+                message: action.payload.apierror.message
+            };
+        case types.PLANNING_TABLE['VALIDATE_CATEGORY_ALREADY_EXISTS_IN_MONTH']:
+            return {
+                ...state,
+                loading: true,
+                categoryAlreadyExists: false,
+                selected: action.payload.data,
+                alreadyExistingWithinMonth: {}
+            };
+        case types.PLANNING_TABLE['VALIDATE_CATEGORY_ALREADY_EXISTS_IN_MONTH_SUCCESS']:
+            return {
+                ...state,
+                loading: false,
+                categoryAlreadyExists: true,
+                alreadyExistingWithinMonth: action.payload
+            };
+
+
         default:
             return state;
     }

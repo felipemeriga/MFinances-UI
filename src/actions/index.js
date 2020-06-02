@@ -1,9 +1,11 @@
 
 import * as apiAction from './api';
+import * as planningActions from  './planning';
 
 
 const actions = {
-    ...apiAction
+    ...apiAction,
+    ...planningActions
 };
 
 export { actions };

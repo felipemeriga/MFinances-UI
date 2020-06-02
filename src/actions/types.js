@@ -1,4 +1,6 @@
 // A simple GET request
+import {func} from "prop-types";
+
 const GET = 'GET';
 // A simple DELETE request
 const DELETE = 'DELETE';
@@ -31,6 +33,12 @@ function createRequestTypes(base, additional) {
     return obj;
 }
 
+function createCustomTypes(obj, base) {
+    obj[base] = base;
+    obj[`${base}_${SUCCESS}`] = `${base}_${SUCCESS}`;
+    obj[`${base}_${ERROR}`] = `${base}_${ERROR}`;
+}
+
 /* This is a very important step of the application, each of the exported constants are called types, for example
 we have the type USER, this type user is an object with the keys, GET, DELETE, POST, PUT, GET_SUCCESS, POST_SUCCESS,
 PUT_SUCCESS, DELETE_SUCCESS, GET_ERROR, POST_ERROR, PUT_ERROR, DELETE_ERROR. Then for each of those keys, there are the
@@ -42,6 +50,8 @@ from inside your components all and over again, Sagas will do that for you.
 export const USER = createRequestTypes('USER');
 export const CATEGORY_TABLE = createRequestTypes('CATEGORY_TABLE');
 export const PLANNING_TABLE = createRequestTypes('PLANNING_TABLE');
+createCustomTypes(PLANNING_TABLE, 'VALIDATE_CATEGORY_ALREADY_EXISTS_IN_MONTH');
+
 export const CALL_API = 'CALL_API';
 // Those are the endpoints for each type, make sure that the key inside ENDPOINTS, matches with the type name.
 export const ENDPOINTS = {

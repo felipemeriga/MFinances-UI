@@ -8,6 +8,12 @@ import DateFnsUtils from '@date-io/date-fns';
 import moment from "moment";
 import {ENDPOINTS} from "../../actions/types"; // choose your lib
 import Select from '@material-ui/core/Select';
+import Dialog from "@material-ui/core/Dialog/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
+import DialogContent from "@material-ui/core/DialogContent/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions/DialogActions";
+import Button from "@material-ui/core/Button";
 
 export default class PlanningTable extends CustomizedTable {
 
@@ -58,27 +64,53 @@ export default class PlanningTable extends CustomizedTable {
         ];
         this.state = {
             ...this.state,
-            selectedMonth: new Date(moment())
+            selectedMonth: new Date(moment()),
+            categoryAlreadyExistsDialog: false,
         };
     }
 
     handleCreateRow = (data) => {
+        // This is a little workaround, because the mbrn-material-table don't send a proper selected data
+        // from the dropdown, if basically don't click on it
         if(data.category === undefined) {
             data['category'] = this.props.information.categoriesFk[0];
         }
+        // Validation to make sure the value is casted to Float, and all commas converted to dots.
+        data.value = parseFloat(data.value.replace(",", "."));
 
-        this.props.callApi({
-            type: this.props.type,
-            method: 'post',
+        this.props.validateCategoryAlreadyExistsInMonth({
+            method: 'get',
+            data: data,
             config: {
-                reFetch: true,
-                data: data,
+                data: {},
                 headers:{},
-                endpoint: ENDPOINTS[this.props.type],
-                arguments: ''
+                endpoint: `${ENDPOINTS[this.props.type]}/validate/${data.category.id}`,
+                arguments: `date=${this.formatStateToDate(this.state.selectedMonth)}`
             }
         });
+
+        // this.props.callApi({
+        //     type: this.props.type,
+        //     method: 'post',
+        //     config: {
+        //         reFetch: true,
+        //         data: data,
+        //         headers:{},
+        //         endpoint: ENDPOINTS[this.props.type],
+        //         arguments: ''
+        //     }
+        // });
+
     };
+
+    componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
+        if(!prevProps.information.categoryAlreadyExists && this.props.information.categoryAlreadyExists) {
+            this.setState({
+                ...this.state,
+                categoryAlreadyExistsDialog: true,
+            });
+        }
+    }
 
     firstComponentFetch = () => {
             this.props.getAllWithFK({
@@ -119,6 +151,70 @@ export default class PlanningTable extends CustomizedTable {
         });
     };
 
+    handleSameMonthExistenceCategoryOnCancelClicked = () => {
+        this.setState({
+            ...this.state,
+            categoryAlreadyExistsDialog: false
+        });
+    };
+
+    handleSameMonthExistenceCategoryOnConfirmClicked = () => {
+        let updatePlanning = this.props.information.alreadyExistingWithinMonth;
+        updatePlanning.value = updatePlanning.value + this.props.information.selected.value ;
+
+        this.setState({
+            ...this.state,
+            categoryAlreadyExistsDialog: false
+        });
+
+        this.props.callApi({
+            type: this.props.type,
+            method: 'put',
+            config: {
+                reFetch: true,
+                data: updatePlanning,
+                headers:{},
+                endpoint: `${ENDPOINTS[this.props.type]}/${updatePlanning.id}`,
+                arguments: ''
+            }
+        });
+
+    };
+
+    handleSameMonthExistenceCategory = () => {
+        if(this.state.categoryAlreadyExistsDialog) {
+            return (
+                <Dialog
+                    open={this.state.categoryAlreadyExistsDialog}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">{"Add to the existing one?"}</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            It seems that you are trying to create a new planning with the category
+                            <br></br>
+                            <b>{this.props.information.alreadyExistingWithinMonth.category.name}</b>,
+                            <br></br>
+                            but there is already a planning of
+                            that category within this month, do you want us to add the value to the already created
+                            one?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.handleSameMonthExistenceCategoryOnCancelClicked} color="primary">
+                            Cancel
+                        </Button>
+                        <Button onClick={this.handleSameMonthExistenceCategoryOnConfirmClicked} color="primary"
+                                autoFocus>
+                            Ok
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+            );
+        }
+    };
+
     returnCustomToolbar = (props) => {
         return (
             <div>
@@ -136,6 +232,7 @@ export default class PlanningTable extends CustomizedTable {
                         />
                     </MuiPickersUtilsProvider>
                 </div>
+                {this.handleSameMonthExistenceCategory()}
             </div>
         );
     };

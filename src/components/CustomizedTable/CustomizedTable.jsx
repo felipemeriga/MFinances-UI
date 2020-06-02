@@ -178,9 +178,13 @@ export default class CustomizedTable extends React.Component {
     };
 
     handleSuccessErrorMessages = () => {
-        if(this.props.information.success) {
+        if(this.props.information.success || this.props.information.error) {
             return (
-                <CustomSnackbars open={this.props.information.success}/>
+                <CustomSnackbars open={true}
+                                 message={this.props.information.message}
+                                 severity={this.props.information.success ? 'success' :
+                                     (this.props.information.error? 'error' : 'info')  }
+                />
             );
         }
     };
