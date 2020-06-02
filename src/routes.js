@@ -25,6 +25,7 @@ import Icons from "./views/examples/Icons.jsx";
 import Detail from "./containers/Detail";
 import Planning from "./components/Planning/Planning";
 import Category from "./components/Category/Category";
+import CashFlow from "./components/CashFlow/CashFlow";
 
 var routes = [
   {
@@ -35,11 +36,11 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/expenses",
-    name: "Expenses",
+    path: "/cash-flow",
+    name: "Cash Flow",
     icon: "ni ni-money-coins text-info",
-    component: Login,
-    layout: "/auth"
+    component: CashFlow,
+    layout: "/admin"
   },
   {
     path: "/plannings",

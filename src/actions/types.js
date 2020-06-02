@@ -51,6 +51,7 @@ export const USER = createRequestTypes('USER');
 export const CATEGORY_TABLE = createRequestTypes('CATEGORY_TABLE');
 export const PLANNING_TABLE = createRequestTypes('PLANNING_TABLE');
 createCustomTypes(PLANNING_TABLE, 'VALIDATE_CATEGORY_ALREADY_EXISTS_IN_MONTH');
+export const CASH_FLOW_TABLE = createRequestTypes('CASH_FLOW_TABLE');
 
 export const CALL_API = 'CALL_API';
 // Those are the endpoints for each type, make sure that the key inside ENDPOINTS, matches with the type name.
@@ -59,10 +60,13 @@ export const ENDPOINTS = {
     CATEGORY_TABLE: 'categories',
   CATEGORY: 'categories',
     PLANNING: 'plannings',
-    PLANNING_TABLE: 'plannings'
+    PLANNING_TABLE: 'plannings',
+    CASH_FLOW: 'cash-flow',
+    CASH_FLOW_TABLE: 'cash-flow'
 };
 // Those are the selectors for Sagas to get the current state, make sure that the key inside SELECTORS, matches with the type name.
 export const SELECTORS = {
     CATEGORY_TABLE: 'categoryTable',
-    PLANNING_TABLE: 'planningTable'
+    PLANNING_TABLE: 'planningTable',
+    CASH_FLOW_TABLE: 'cashFlowTable'
 };

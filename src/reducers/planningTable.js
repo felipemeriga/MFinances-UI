@@ -156,8 +156,13 @@ export default function planningTable(state = initialState, action = {}) {
                 categoryAlreadyExists: true,
                 alreadyExistingWithinMonth: action.payload
             };
-
-
+        case types.PLANNING_TABLE['VALIDATE_CATEGORY_ALREADY_EXISTS_IN_MONTH_ERROR']:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+                message: action.payload.apierror.message
+            };
         default:
             return state;
     }
