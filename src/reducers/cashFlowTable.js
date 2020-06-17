@@ -30,7 +30,8 @@ export default function cashFlowTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: false,
+                success: false,
             };
         case types.CASH_FLOW_TABLE['GET_ALL_WITH_FK_SUCCESS']:
             return {
@@ -52,7 +53,8 @@ export default function cashFlowTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: false,
+                success: false,
             };
         case types.CASH_FLOW_TABLE['GET_SUCCESS']:
             return {
@@ -66,6 +68,75 @@ export default function cashFlowTable(state = initialState, action = {}) {
                 ...state,
                 loading: false,
                 error: true
+            };
+        case types.CASH_FLOW_TABLE['POST']:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+                error: false
+            };
+        case types.CASH_FLOW_TABLE['POST_SUCCESS']:
+            return {
+                ...state,
+                loading: false,
+                success: true,
+                message: `Success creating cash-flow with id: ${action.payload.id}`,
+                error: true
+            };
+        case types.CASH_FLOW_TABLE['POST_ERROR']:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+                message: action.payload.apierror.message
+            };
+        case types.CASH_FLOW_TABLE['PUT']:
+            return {
+                ...state,
+                selected: action.payload,
+                loading: true,
+                error: false,
+                success: false
+            };
+        case types.CASH_FLOW_TABLE['PUT_SUCCESS']:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                success: true,
+                message: `Success saving Cash-Flow with id: ${action.payload.id}`,
+            };
+        case types.CASH_FLOW_TABLE['PUT_ERROR']:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+                success: false,
+                message: action.payload.apierror.message
+            };
+        case types.CASH_FLOW_TABLE['DELETE']:
+            return {
+                ...state,
+                selected: action.payload,
+                loading: true,
+                success: false,
+                error: false
+            };
+        case types.CASH_FLOW_TABLE['DELETE_SUCCESS']:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                success: true,
+                message: 'Done in deleting item(s)'
+            };
+        case types.CASH_FLOW_TABLE['DELETE_ERROR']:
+            return {
+                ...state,
+                loading: false,
+                error: true,
+                message: action.payload.apierror.message
             };
         default:
             return state;

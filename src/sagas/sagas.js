@@ -15,14 +15,23 @@ export function* reFetch(payload) {
     payload.method = 'get';
     payload.config.reFetch = false;
     payload.config.endpoint = ENDPOINTS[payload.type];
-    payload.config.arguments = `size=${typeState.data.size}&page=${typeState.data.number}`;
+
+    // This is clause here is to handle planning and cash flow tables, because they are filtered depending a specific month
+    if(payload.type == 'PLANNING_TABLE' || payload.type == 'CASH_FLOW_TABLE') {
+        let formattedDate = typeState.selectedMonth.getFullYear() + "-" + (typeState.selectedMonth.getMonth() + 1) + "-" + typeState.selectedMonth.getDate();
+        payload.selectedMonth = typeState.selectedMonth;
+        payload.config.endpoint = payload.config.endpoint + "/monthly";
+        payload.config.arguments = `size=${typeState.data.size}&page=${typeState.data.number}&date=${formattedDate}`;
+    } else {
+        payload.config.arguments = `size=${typeState.data.size}&page=${typeState.data.number}`;
+    }
     yield put({type: types.CALL_API, payload: payload});
 }
 
 export function* handleApiRequest(action) {
     const currentTypes = (types[action.payload.type]);
     try {
-        yield put({type: currentTypes[action.payload.method.toUpperCase()], payload: action.payload.config.data});
+        yield put({type: currentTypes[action.payload.method.toUpperCase()], payload: action.payload});
         const request = yield api.callApi(action.payload);
         yield put({type: currentTypes[action.payload.method.toUpperCase() + '_SUCCESS'], payload: request});
 

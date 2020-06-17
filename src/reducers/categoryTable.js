@@ -28,7 +28,8 @@ export default function categoryTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: false,
+                success: false,
             };
         case types.CATEGORY_TABLE['GET_ALL_WITH_FK_SUCCESS']:
             return {
@@ -49,7 +50,8 @@ export default function categoryTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: false,
+                success: false,
             };
         case types.CATEGORY_TABLE['GET_SUCCESS']:
             return {
@@ -92,7 +94,7 @@ export default function categoryTable(state = initialState, action = {}) {
             return {
                 ...state,
                 success: false,
-                selected: action.payload,
+                selected: action.payload.config.data,
                 loading: true,
                 error: false
             };
@@ -117,7 +119,7 @@ export default function categoryTable(state = initialState, action = {}) {
         case types.CATEGORY_TABLE['DELETE']:
             return {
                 ...state,
-                selected: action.payload,
+                selected: action.payload.config.data,
                 loading: true,
                 success: false,
                 error: false

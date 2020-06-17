@@ -43,7 +43,7 @@ export default class PlanningTable extends CustomizedTable {
                         <Select
                             native
                             value={props.value}
-                            onChange={(e) => props.onChange(e.target.value)}
+                            onChange={(e) => this.onChangeTest(e.target.value)}
                         >
                             {
                                 this.props.information.categoriesFk.map((prop, key) => {
@@ -64,10 +64,13 @@ export default class PlanningTable extends CustomizedTable {
         ];
         this.state = {
             ...this.state,
-            selectedMonth: new Date(moment()),
             categoryAlreadyExistsDialog: false,
         };
     }
+
+    onChangeTest = (e) => {
+        debugger;
+    };
 
     handleCreateRow = (data) => {
         // This is a little workaround, because the mbrn-material-table don't send a proper selected data
@@ -77,6 +80,7 @@ export default class PlanningTable extends CustomizedTable {
         }
         // Validation to make sure the value is casted to Float, and all commas converted to dots.
         data.value = parseFloat(data.value.replace(",", "."));
+        data['date'] = this.props.information.selectedMonth;
 
         this.props.validateCategoryAlreadyExistsInMonth({
             method: 'get',
@@ -85,22 +89,23 @@ export default class PlanningTable extends CustomizedTable {
                 data: {},
                 headers:{},
                 endpoint: `${ENDPOINTS[this.props.type]}/validate/${data.category.id}`,
-                arguments: `date=${this.formatStateToDate(this.state.selectedMonth)}`
+                arguments: `date=${this.formatStateToDate(this.props.information.selectedMonth)}`
             }
         });
+    };
 
-        // this.props.callApi({
-        //     type: this.props.type,
-        //     method: 'post',
-        //     config: {
-        //         reFetch: true,
-        //         data: data,
-        //         headers:{},
-        //         endpoint: ENDPOINTS[this.props.type],
-        //         arguments: ''
-        //     }
-        // });
-
+    handleUpdateRow = (data) => {
+        this.props.callApi({
+            type: this.props.type,
+            method: 'put',
+            config: {
+                reFetch: true,
+                data: data,
+                headers:{},
+                endpoint: `${ENDPOINTS[this.props.type]}/${data.id}`,
+                arguments: ''
+            }
+        });
     };
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
@@ -122,7 +127,7 @@ export default class PlanningTable extends CustomizedTable {
                     data: {},
                     headers:{},
                     endpoint: `${ENDPOINTS[this.props.type]}/monthly`,
-                    arguments: `size=5&page=0&date=${this.formatStateToDate(this.state.selectedMonth)}`
+                    arguments: `size=5&page=0&date=${this.formatStateToDate(this.props.information.selectedMonth)}`
                 }
             });
     };
@@ -133,11 +138,8 @@ export default class PlanningTable extends CustomizedTable {
     };
 
     handleMonthChange = (date) => {
-        this.setState({
-            ...this.state,
-            selectedMonth: date
-        });
         this.props.callApi({
+            selectedMonth: date,
             type: this.props.type,
             method: 'get',
             fkEndpoints: [ENDPOINTS['CATEGORY']],
@@ -147,6 +149,36 @@ export default class PlanningTable extends CustomizedTable {
                 headers:{},
                 endpoint: `${ENDPOINTS[this.props.type]}/monthly`,
                 arguments: `size=${this.props.information.data.size}&page=${this.props.information.data.number}&date=${this.formatStateToDate(date)}`
+            }
+        });
+    };
+
+    handleChangeRowPerPage = (numberOfElementsPerPage) => {
+        this.props.callApi({
+            selectedMonth: this.props.information.selectedMonth,
+            type: this.props.type,
+            method: 'get',
+            config: {
+                reFetch: false,
+                data: {},
+                headers:{},
+                endpoint: `${ENDPOINTS[this.props.type]}/monthly`,
+                arguments: `size=${numberOfElementsPerPage}&page=${this.props.information.data.number}&date=${this.formatStateToDate(this.props.information.selectedMonth)}`
+            }
+        });
+    };
+
+    handleChangePage = (e,page) => {
+        this.props.callApi({
+            selectedMonth: this.props.information.selectedMonth,
+            type: this.props.type,
+            method: 'get',
+            config: {
+                reFetch: false,
+                data: {},
+                headers:{},
+                endpoint: `${ENDPOINTS[this.props.type]}/monthly`,
+                arguments: `size=${this.props.information.data.size}&page=${page}&date=${this.formatStateToDate(this.props.information.selectedMonth)}`
             }
         });
     };
@@ -227,7 +259,7 @@ export default class PlanningTable extends CustomizedTable {
                             views={["year", "month"]}
                             label="Year and Month"
                             helperText="Select the Planning Month"
-                            value={this.state.selectedMonth}
+                            value={this.props.information.selectedMonth}
                             onChange={this.handleMonthChange}
                         />
                     </MuiPickersUtilsProvider>

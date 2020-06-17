@@ -32,7 +32,8 @@ export default function planningTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: true,
-                error: false
+                error: false,
+                success: false,
             };
         case types.PLANNING_TABLE['GET_ALL_WITH_FK_SUCCESS']:
             return {
@@ -53,8 +54,10 @@ export default function planningTable(state = initialState, action = {}) {
         case types.PLANNING_TABLE['GET']:
             return {
                 ...state,
+                selectedMonth: action.payload.selectedMonth,
                 loading: true,
-                error: false
+                error: false,
+                success: false,
             };
         case types.PLANNING_TABLE['GET_SUCCESS']:
             return {
@@ -95,18 +98,16 @@ export default function planningTable(state = initialState, action = {}) {
         case types.PLANNING_TABLE['PUT']:
             return {
                 ...state,
-                selected: action.payload,
+                selected: action.payload.config.data,
                 loading: true,
                 error: false,
                 success: false
             };
         case types.PLANNING_TABLE['PUT_SUCCESS']:
-            const elementsIndex = state.data.content.findIndex(element => element.id === action.payload.id);
-            state.data.content[elementsIndex] = action.payload;
             return {
                 ...state,
                 loading: false,
-                error: true,
+                error: false,
                 success: true,
                 message: `Success saving Planning with id: ${action.payload.id}`,
             };
@@ -121,7 +122,7 @@ export default function planningTable(state = initialState, action = {}) {
         case types.PLANNING_TABLE['DELETE']:
             return {
                 ...state,
-                selected: action.payload,
+                selected: action.payload.config.data,
                 loading: true,
                 success: false,
                 error: false
