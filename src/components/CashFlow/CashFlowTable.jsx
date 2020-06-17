@@ -14,6 +14,7 @@ export default class CashFlowTable extends CustomizedTable {
         super(props);
         this.columns=[
             { title: 'Name', field: 'name'},
+            { title: 'Date', field: 'date', type: 'date'},
             { title: 'Value', field: 'value', type: 'currency', initialEditValue: 0,  cellStyle: { textAlign: 'left' }},
             {
                 title: 'Category', field: 'category.id',
