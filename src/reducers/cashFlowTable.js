@@ -54,7 +54,6 @@ export default function cashFlowTable(state = initialState, action = {}) {
                 ...state,
                 loading: true,
                 error: false,
-                success: false,
             };
         case types.CASH_FLOW_TABLE['GET_SUCCESS']:
             return {
@@ -94,7 +93,7 @@ export default function cashFlowTable(state = initialState, action = {}) {
         case types.CASH_FLOW_TABLE['PUT']:
             return {
                 ...state,
-                selected: action.payload,
+                selected: action.payload.config.data,
                 loading: true,
                 error: false,
                 success: false
@@ -118,7 +117,7 @@ export default function cashFlowTable(state = initialState, action = {}) {
         case types.CASH_FLOW_TABLE['DELETE']:
             return {
                 ...state,
-                selected: action.payload,
+                selected: action.payload.config.data,
                 loading: true,
                 success: false,
                 error: false

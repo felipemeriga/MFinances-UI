@@ -57,7 +57,6 @@ export default function planningTable(state = initialState, action = {}) {
                 selectedMonth: action.payload.selectedMonth,
                 loading: true,
                 error: false,
-                success: false,
             };
         case types.PLANNING_TABLE['GET_SUCCESS']:
             return {

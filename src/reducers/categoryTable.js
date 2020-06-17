@@ -50,8 +50,7 @@ export default function categoryTable(state = initialState, action = {}) {
             return {
                 ...state,
                 loading: true,
-                error: false,
-                success: false,
+                error: false
             };
         case types.CATEGORY_TABLE['GET_SUCCESS']:
             return {
