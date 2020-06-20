@@ -14,6 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 import Button from "@material-ui/core/Button";
+import CustomSnackbars from "../CustomizedTable/CustomSnackbar";
 
 export default class PlanningTable extends CustomizedTable {
 
@@ -43,7 +44,7 @@ export default class PlanningTable extends CustomizedTable {
                         <Select
                             native
                             value={props.value}
-                            onChange={(e) => this.onChangeTest(e.target.value)}
+                            onChange={(e) => props.onChange(e.target.value)}
                         >
                             {
                                 this.props.information.categoriesFk.map((prop, key) => {
@@ -65,12 +66,9 @@ export default class PlanningTable extends CustomizedTable {
         this.state = {
             ...this.state,
             categoryAlreadyExistsDialog: false,
+            categoryAlreadyExistsOnUpdate: false
         };
     }
-
-    onChangeTest = (e) => {
-        debugger;
-    };
 
     handleCreateRow = (data) => {
         // This is a little workaround, because the mbrn-material-table don't send a proper selected data
@@ -247,6 +245,17 @@ export default class PlanningTable extends CustomizedTable {
         }
     };
 
+    handleUpdateCategoryAlreadyExistsError = () => {
+        if(this.state.categoryAlreadyExistsOnUpdate) {
+            return (
+                <CustomSnackbars open={true}
+                                 message={'There is already this category within this month'}
+                                 severity={'error'}
+                />
+            );
+        }
+    };
+
     returnCustomToolbar = (props) => {
         return (
             <div>
@@ -265,6 +274,7 @@ export default class PlanningTable extends CustomizedTable {
                     </MuiPickersUtilsProvider>
                 </div>
                 {this.handleSameMonthExistenceCategory()}
+                {this.handleUpdateCategoryAlreadyExistsError()}
             </div>
         );
     };

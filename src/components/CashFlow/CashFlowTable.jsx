@@ -91,6 +91,27 @@ export default class CashFlowTable extends CustomizedTable {
         });
     };
 
+    handleCreateRow = (data) => {
+
+        // This is a little workaround, because the mbrn-material-table don't send a proper selected data
+        // from the dropdown, if basically don't click on it
+        if(data.category === undefined) {
+            data['category'] = this.props.information.categoriesFk[0];
+        }
+
+        this.props.callApi({
+            type: this.props.type,
+            method: 'post',
+            config: {
+                reFetch: true,
+                data: data,
+                headers:{},
+                endpoint: ENDPOINTS[this.props.type],
+                arguments: ''
+            }
+        });
+    };
+
     formatStateToDate = (date) => {
         let formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
         return formattedDate;
