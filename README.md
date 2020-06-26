@@ -135,7 +135,7 @@ Argon Dashboard React
     │   │   ├── AdminFooter.jsx
     │   │   └── AuthFooter.jsx
     │   ├── Headers
-    │   │   ├── Header.jsx
+    │   │   ├── HeaderStatistics.jsxistics.jsx
     │   │   └── UserHeader.jsx
     │   ├── Navbars
     │   │   ├── AdminNavbar.jsx

@@ -38,7 +38,7 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 // core components
-import Header from "../../components/Headers/Header.jsx";
+import Header from "../../components/Headers/HeaderStatistics.jsx";
 
 class Tables extends React.Component {
   render() {

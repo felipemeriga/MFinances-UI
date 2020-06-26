@@ -28,7 +28,7 @@ import {
 import { Card, Container, Row } from "reactstrap";
 
 // core components
-import Header from "../../components/Headers/Header.jsx";
+import Header from "../../components/Headers/HeaderStatistics.jsx";
 // mapTypeId={google.maps.MapTypeId.ROADMAP}
 const MapWrapper = withScriptjs(
   withGoogleMap(props => (

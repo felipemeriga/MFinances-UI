@@ -29,7 +29,7 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 // core components
-import Header from "../../components/Headers/Header.jsx";
+import Header from "../../components/Headers/HeaderStatistics.jsx";
 
 class Icons extends React.Component {
   state = {};

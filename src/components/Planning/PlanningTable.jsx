@@ -1,11 +1,9 @@
 import CustomizedTable from "../CustomizedTable/CustomizedTable";
 import {MTableToolbar} from "material-table";
-import {TextField} from "@material-ui/core";
 import React, { Fragment } from "react";
 import { DatePicker } from "@material-ui/pickers";
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import moment from "moment";
 import {ENDPOINTS} from "../../actions/types"; // choose your lib
 import Select from '@material-ui/core/Select';
 import Dialog from "@material-ui/core/Dialog/Dialog";

@@ -23,7 +23,7 @@ const initialState = {
 };
 
 export default function categoryTable(state = initialState, action = {}) {
-    switch (action.type) {
+        switch (action.type) {
         case types.CATEGORY_TABLE['GET_ALL_WITH_FK']:
             return {
                 ...state,
