@@ -1,6 +1,6 @@
 import {put, takeEvery} from "@redux-saga/core/effects";
 import * as types from "../actions/types";
-import {handleApiRequest} from "./sagas";
+import {handleApiRequest} from "./apiSagas";
 import {api} from "../services";
 import {PLANNING_TABLE} from "../actions/types";
 import {ENDPOINTS} from "../actions/types";

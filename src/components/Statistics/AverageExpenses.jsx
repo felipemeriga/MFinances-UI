@@ -1,10 +1,7 @@
 import React from "react";
-import moment from "moment";
 import {Card, CardBody, CardHeader, Col, Nav, NavItem, NavLink, Row, Table} from "reactstrap";
 import classnames from "classnames";
 import Select from "@material-ui/core/Select/Select";
-import {Line} from "react-chartjs-2";
-import {chartExample1} from "../../variables/charts";
 import {bindActionCreators} from "redux";
 import * as appActions from "../../actions";
 import {connect} from "react-redux";

@@ -7,7 +7,6 @@ import {Card, CardHeader, Col, Row, Table} from "reactstrap";
 import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ReactLoading from "react-loading";
-import expenseStatistics from "../../reducers/expenseStatistics";
 import {ENDPOINTS} from "../../actions/types";
 import moment from "moment";
 

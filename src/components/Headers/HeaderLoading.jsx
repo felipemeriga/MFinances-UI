@@ -1,5 +1,4 @@
 import ReactLoading from "react-loading";
-import {CardBody} from "reactstrap";
 import React from "react";
 
 export function HeaderLoading(props) {

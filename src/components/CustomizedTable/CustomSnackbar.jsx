@@ -1,7 +1,6 @@
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import CustomizedTable from "./CustomizedTable";
 import {PropTypes} from "prop-types";
 
 export default class CustomSnackbars extends React.Component {

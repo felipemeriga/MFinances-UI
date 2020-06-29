@@ -6,7 +6,6 @@ import * as appActions from "../../actions";
 import {PropTypes} from "prop-types";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
-import PlanningTable from "../Planning/PlanningTable";
 import CashFlowTable from "./CashFlowTable";
 
 

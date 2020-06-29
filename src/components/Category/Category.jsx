@@ -1,5 +1,4 @@
 import React from "react";
-import {Card, Container} from "reactstrap";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import {PropTypes} from "prop-types";

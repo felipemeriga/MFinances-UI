@@ -2,7 +2,6 @@ import React from "react";
 import Detail from "../../containers/Detail";
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
-import CategoryTable from "../Category/CategoryTable";
 import PlanningTable from "../Planning/PlanningTable";
 import {bindActionCreators} from "redux";
 import * as appActions from "../../actions";
