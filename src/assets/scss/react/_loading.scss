@@ -11,3 +11,11 @@
 }
 
 
+.container-flex-min-height {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  min-height: 85vh;
+}

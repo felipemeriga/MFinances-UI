@@ -1,24 +1,9 @@
-import {CognitoAuth} from 'amazon-cognito-auth-js';
 import {config as AWSConfig} from 'aws-sdk';
 import appConfig from '../config/app-config.json';
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
 import {SingletonCognitoAuth} from './SingletonCognitoAuth';
 
 AWSConfig.region = appConfig.region;
-
-// Creates a CognitoAuth instance
-const createCognitoAuth = () => {
-    const appWebDomain = appConfig.userPoolBaseUri.replace('https://', '').replace('http://', '');
-    return new CognitoAuth({
-        UserPoolId: appConfig.userPool,
-        ClientId: appConfig.clientId,
-        AppWebDomain: appWebDomain,
-        responseType: appConfig.responseType,
-        TokenScopesArray: appConfig.tokenScopes,
-        RedirectUriSignIn: appConfig.callbackUri,
-        RedirectUriSignOut: appConfig.signoutUri
-    });
-};
 
 // Creates a CognitoUser instance
 const createCognitoUser = () => {
@@ -98,7 +83,6 @@ const signOutCognitoSession = () => {
 };
 
 export default {
-    createCognitoAuth,
     createCognitoUser,
     createCognitoUserPool,
     getCognitoSession,

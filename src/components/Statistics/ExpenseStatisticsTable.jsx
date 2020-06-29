@@ -7,7 +7,6 @@ import {Card, CardHeader, Col, Row, Table} from "reactstrap";
 import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ReactLoading from "react-loading";
-import './expenseStatistics.scss';
 import expenseStatistics from "../../reducers/expenseStatistics";
 import {ENDPOINTS} from "../../actions/types";
 import moment from "moment";
@@ -93,7 +92,7 @@ class ExpenseStatisticsTable extends React.Component {
     renderContent = () => {
         if(this.props.expenseStatistics.loading) {
             return (
-                <div className={'container-flex'}>
+                <div className={'container-flex-min-height'}>
                     <ReactLoading color={'#afdae3'} type={'spinningBubbles'} height={'15%'} width={'15%'} />
                 </div>
             );

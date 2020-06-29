@@ -15,6 +15,8 @@ export function* initSessionFromCallbackURI(action) {
     }
 }
 
+// Watches the trigger of PROCESS_SESSION action, this action is triggered, when the user logs-in
+// and the callback component get the current URL arguments needed to fetch the access token and session
 export function* watchProcessSession() {
     yield takeEvery(types.PROCESS_SESSION, initSessionFromCallbackURI);
 }

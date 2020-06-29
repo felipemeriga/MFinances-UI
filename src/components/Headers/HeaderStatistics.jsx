@@ -23,7 +23,6 @@ import {connect} from "react-redux";
 import * as appActions from "../../actions";
 import { bindActionCreators } from 'redux';
 import {PropTypes} from 'prop-types';
-import './loading.scss';
 import {HeaderLoading} from "./HeaderLoading";
 import {ENDPOINTS} from "../../actions/types";
 

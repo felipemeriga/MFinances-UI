@@ -60,7 +60,7 @@ class AverageExpenses extends React.Component {
     renderContent = () => {
         if(this.props.averageExpenses.loading) {
             return (
-                <div className={'container-flex'}>
+                <div className={'container-flex-min-height'}>
                     <ReactLoading color={'#afdae3'} type={'spinningBubbles'} height={'15%'} width={'15%'} />
                 </div>
             );
