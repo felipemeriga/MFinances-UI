@@ -15,6 +15,10 @@ export const GET_ALL_WITH_FK = 'GET_ALL_WITH_FK';
 const SUCCESS = 'SUCCESS';
 // ERROR suffix for the types
 const ERROR = 'ERROR';
+export const CLEAR_SESSION = 'CLEAR_SESSION';
+export const SET_SESSION = 'SET_SESSION';
+export const PROCESS_SESSION = 'PROCESS_SESSION';
+export const SESSION_ERROR = 'SESSION_ERROR';
 
 function createRequestTypes(base, additional) {
     let options = [GET, DELETE, PUT, POST, GET_ALL_WITH_FK];

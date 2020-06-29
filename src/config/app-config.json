@@ -1,12 +1,11 @@
 {
   "region": "eu-west-1",
-  "userPool": "eu-west-1_Mz5mOFlIq",
-  "userPoolBaseUri": "https://instabot-dev.auth.eu-west-1.amazoncognito.com",
-  "clientId": "7unq42i23f68dv8ejag0lmefqc",
-  "callbackUri": "http://localhost:3000",
+  "userPool": "us-east-1_YJGLoYcMz",
+  "userPoolBaseUri": "https://mfinance.auth.us-east-1.amazoncognito.com",
+  "clientId": "3sv3ov530qu7kottrehnamhbib",
+  "callbackUri": "http://localhost:3000/callback",
   "signoutUri": "http://localhost:3000",
-  "tokenScopes": [
-    "email"
-  ],
-  "apiUri": "https://instabot-dev.auth.eu-west-1.amazoncognito.com"
+  "tokenScopes": ["phone", "email", "profile","openid", "aws.cognito.signin.user.admin"],
+  "apiUri": "https://mfinance.auth.us-east-1.amazoncognito.com",
+  "responseType": "code"
 }

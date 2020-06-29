@@ -29,6 +29,8 @@ import AdminLayout from "./layouts/Admin.jsx";
 import saga from 'redux-saga';
 import sagaRoot from './sagas';
 import {Provider} from "react-redux";
+import PrivateRoute from "./PrivateRoute";
+import CognitoCallback from "./components/CognitoCallback/CognitoCallback";
 
 
 // The middlewares which will be used in this App
@@ -56,8 +58,11 @@ ReactDOM.render(
       <BrowserRouter>
         <Switch>
             {/*<Route path="/auth" render={props => <AuthLayout {...props} />} />*/}
+            <Route path="/callback" render={props => <CognitoCallback {...props} />} />
+
+            <PrivateRoute path="/" name="Home" component={AdminLayout} />
              {/*<Redirect from="/" to="/admin/index" />*/}
-            <Route path="/" render={props => <AdminLayout {...props} />}/>
+            {/*<Route path="/" render={props => <AdminLayout {...props} />}/>*/}
         </Switch>
       </BrowserRouter>
   </Provider>,

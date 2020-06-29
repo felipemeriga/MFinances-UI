@@ -2,46 +2,77 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import {Route} from "react-router-dom";
+import {PropTypes} from "prop-types";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import * as appActions from "./actions";
+import cognitoUtils from "./auth/cognitoUtils";
 
-@inject("authStore")
-@observer
+
 class PrivateRoute extends React.Component {
-
-    componentWillMount(): void {
-        const urlString = window.location.href
-        var url = new URL(urlString);
-        if(url.hash !== "" && url.hash.includes("access_token") && !this.props.authStore.isUserAuthenticated()) {
-            this.props.authStore.parseCognitoWebResponse(window.location.href);
-        }
-    }
 
     // User this function for testing purposes only, to delete the session
     signOutForTest(){
-       this.props.authStore.signOut();
+        cognitoUtils.signOutCognitoSession();
     }
 
+    checkUserLoggedInLocalStorage = () => {
+        cognitoUtils.getCognitoSession().then(
+            (result => {
+                this.props.setSession(result);
+            })
+        ).catch(
+            (error => {
+             cognitoUtils.cognitoLogin();
+            }));
+
+        return (
+            <>
+            </>
+        );
+    };
+
     render() {
-        //this.signOutForTest();
         const {component: Component, ...rest} = this.props;
         return (
             <Route
                 {...rest}
                 render={props =>
-                    this.props.authStore.isUserAuthenticated() ? (
+                    this.props.session.isLoggedIn ? (
                         <Component {...props} />
                     ) : (
-                        this.props.authStore.authLoading ? (
-                            <div>Loading...</div>
-                        ) : (
-                            this.props.authStore.login()
-                        )
+                        this.checkUserLoggedInLocalStorage()
                     )
                 }
             />
-        )
+        );
     }
 
 
 }
 
-export default PrivateRoute;
+function mapStateToProps(state) {
+    return {
+        session: state.session
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        setSession: bindActionCreators(appActions.actions.setSession, dispatch),
+        initSessionFromCallbackURI: bindActionCreators(appActions.actions.initSessionFromCallbackURI, dispatch),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PrivateRoute);
+
+PrivateRoute.defaultProps = {
+};
+
+PrivateRoute.propTypes = {
+    component: PropTypes.func,
+    location: PropTypes.object,
+    session: PropTypes.object,
+    initSessionFromCallbackURI: PropTypes.func,
+    setSession: PropTypes.func
+};
