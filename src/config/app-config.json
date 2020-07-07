@@ -1,5 +1,5 @@
 {
-  "region": "eu-west-1",
+  "region": "us-east-1",
   "userPool": "us-east-1_YJGLoYcMz",
   "userPoolBaseUri": "https://mfinance.auth.us-east-1.amazoncognito.com",
   "clientId": "3sv3ov530qu7kottrehnamhbib",

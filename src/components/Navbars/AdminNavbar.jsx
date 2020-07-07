@@ -29,8 +29,28 @@ import {
   Media
 } from "reactstrap";
 import {PropTypes} from 'prop-types';
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import * as appActions from "../../actions";
+import {ENDPOINTS} from "../../actions/types";
 
 class AdminNavbar extends React.Component {
+
+  fetchProfilePicture = () => {
+    if(this.props.session.user.userName.includes('google')) {
+      return this.props.session.user.picture;
+    } else if(this.props.session.user.userName.includes('facebook')) {
+      let rawFacebookId = this.props.session.user.userName;
+      const facebookId = rawFacebookId.substring(rawFacebookId.indexOf('_')+1);
+      return `https://graph.facebook.com/${facebookId}/picture?return_ssl_resources=1`;
+    } else {
+      return (
+          require('../../assets/img/brand/logo_transparent.png')
+      );
+    }
+  };
+
+
   render() {
     return (
       <>
@@ -50,12 +70,12 @@ class AdminNavbar extends React.Component {
                     <span className="avatar avatar-sm rounded-circle">
                       <img
                         alt="..."
-                        src={require("../../assets/img/theme/team-4-800x800.jpg")}
+                        src={this.fetchProfilePicture()}
                       />
                     </span>
                     <Media className="ml-2 d-none d-lg-block">
                       <span className="mb-0 text-sm font-weight-bold">
-                        Jessica Jones
+                        {this.props.session.user.name}
                       </span>
                     </Media>
                   </Media>
@@ -68,15 +88,15 @@ class AdminNavbar extends React.Component {
                     <i className="ni ni-single-02" />
                     <span>My profile</span>
                   </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
-                    <i className="ni ni-settings-gear-65" />
-                    <span>Settings</span>
-                  </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
+                  {/*<DropdownItem to="/admin/user-profile" tag={Link}>*/}
+                  {/*  <i className="ni ni-settings-gear-65" />*/}
+                  {/*  <span>Settings</span>*/}
+                  {/*</DropdownItem>*/}
+                  <DropdownItem to="/admin/cash-flow" tag={Link}>
                     <i className="ni ni-money-coins" />
-                    <span>Expenses</span>
+                    <span>Cash Flow</span>
                   </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
+                  <DropdownItem to="/admin/plannings" tag={Link}>
                     <i className="ni ni-chart-bar-32" />
                     <span>Plannings</span>
                   </DropdownItem>
@@ -95,12 +115,24 @@ class AdminNavbar extends React.Component {
   }
 }
 
-export default AdminNavbar;
+function mapStateToProps(state) {
+  return {
+    session: state.session
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminNavbar);
 
 AdminNavbar.defaultProps = {
 };
 
 AdminNavbar.propTypes = {
+  session: PropTypes.object,
   brandText: PropTypes.string,
   location: PropTypes.object,
 };

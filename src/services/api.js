@@ -1,6 +1,14 @@
 import axios from "axios";
 
+import {ENVIRONMENT} from "../constants/constants";
+import {store} from "../index";
+
 const API_ROOT = 'http://localhost:8080/api/';
+
+const api = axios.create({
+    baseURL: API_ROOT
+});
+
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
 export function callApi(payload) {
@@ -10,7 +18,8 @@ export function callApi(payload) {
     if(requestArgs !== '') {
         fullUrl = fullUrl + '?' + requestArgs;
     }
-    return axios({
+
+    return api.request({
         method: payload.method,
         crossDomain: true,
         url: fullUrl,
@@ -23,3 +32,13 @@ export function callApi(payload) {
         return Promise.resolve(response.data);
     });
 }
+
+api.interceptors.request.use(async config => {
+
+    if(ENVIRONMENT !== 'development') {
+        const currentSession = store.getState().session;
+        config.headers.Authorization = `Bearer ${currentSession.credentials.idToken}`;
+    }
+    return config;
+});
+

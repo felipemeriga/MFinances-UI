@@ -50,7 +50,6 @@ const getCognitoSession = () => {
                 reject(new Error('Failure getting Cognito session: ' + err));
                 return;
             }
-
             // Resolve the promise with the session credentials
             console.debug('Successfully got session: ' + JSON.stringify(result));
             const session = {

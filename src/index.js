@@ -41,13 +41,13 @@ const middlewares = [];
 const sagaMiddleware = saga();
 
 middlewares.push(sagaMiddleware);
-if (process.env.NODE_ENV === 'development') {
+if (process.env.ENVIRONMENT === 'development') {
     middlewares.push(logger);
 } else {
     middlewares.push(logger);
 }
 
-const store = createStore(
+export const store = createStore(
     bookState,
     applyMiddleware(...middlewares)
 );

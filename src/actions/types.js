@@ -78,5 +78,6 @@ export const ENDPOINTS = {
 export const SELECTORS = {
     CATEGORY_TABLE: 'categoryTable',
     PLANNING_TABLE: 'planningTable',
-    CASH_FLOW_TABLE: 'cashFlowTable'
+    CASH_FLOW_TABLE: 'cashFlowTable',
+    SESSION: 'session'
 };
