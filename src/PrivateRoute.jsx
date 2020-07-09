@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as appActions from "./actions";
 import cognitoUtils from "./auth/cognitoUtils";
+import {DEV_SESSION, ENVIRONMENT} from "./constants/constants";
 
 
 class PrivateRoute extends React.Component {
@@ -17,15 +18,19 @@ class PrivateRoute extends React.Component {
     }
 
     checkUserLoggedInLocalStorage = () => {
-        cognitoUtils.getCognitoSession().then(
-            (result => {
-                this.props.setSession(result);
-            })
-        ).catch(
-            (error => {
-             cognitoUtils.cognitoLogin();
-            }));
-
+        // If the current environment it's development, there is no need for having a cognito login
+        if (ENVIRONMENT === 'development') {
+            this.props.setSession(DEV_SESSION);
+        } else {
+            cognitoUtils.getCognitoSession().then(
+                (result => {
+                    this.props.setSession(result);
+                })
+            ).catch(
+                (error => {
+                    cognitoUtils.cognitoLogin();
+                }));
+        }
         return (
             <>
             </>

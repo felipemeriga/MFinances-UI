@@ -31,6 +31,7 @@ import sagaRoot from './sagas';
 import {Provider} from "react-redux";
 import PrivateRoute from "./PrivateRoute";
 import CognitoCallback from "./components/CognitoCallback/CognitoCallback";
+import {ENVIRONMENT} from "./constants/constants";
 
 
 // The middlewares which will be used in this App
@@ -41,9 +42,7 @@ const middlewares = [];
 const sagaMiddleware = saga();
 
 middlewares.push(sagaMiddleware);
-if (process.env.ENVIRONMENT === 'development') {
-    middlewares.push(logger);
-} else {
+if (ENVIRONMENT === 'development') {
     middlewares.push(logger);
 }
 
