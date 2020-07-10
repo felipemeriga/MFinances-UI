@@ -118,11 +118,8 @@ export default class CashFlowTable extends CustomizedTable {
     };
 
     handleMonthChange = (date) => {
-        this.setState({
-            ...this.state,
-            selectedMonth: date
-        });
         this.props.callApi({
+            selectedMonth: date,
             type: this.props.type,
             method: 'get',
             fkEndpoints: [ENDPOINTS['CATEGORY']],
@@ -149,7 +146,7 @@ export default class CashFlowTable extends CustomizedTable {
                             views={["year", "month"]}
                             label="Year and Month"
                             helperText="Select the Cash Flow Month"
-                            value={this.state.selectedMonth}
+                            value={this.props.information.selectedMonth}
                             onChange={this.handleMonthChange}
                         />
                     </MuiPickersUtilsProvider>

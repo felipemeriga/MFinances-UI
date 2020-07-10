@@ -52,6 +52,7 @@ export default function cashFlowTable(state = initialState, action = {}) {
         case types.CASH_FLOW_TABLE['GET']:
             return {
                 ...state,
+                selectedMonth: action.payload.selectedMonth,
                 loading: true,
                 error: false,
             };

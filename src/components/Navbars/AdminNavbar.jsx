@@ -33,6 +33,7 @@ import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import * as appActions from "../../actions";
 import {ENDPOINTS} from "../../actions/types";
+import cognitoUtils from "../../auth/cognitoUtils";
 
 class AdminNavbar extends React.Component {
 
@@ -49,6 +50,12 @@ class AdminNavbar extends React.Component {
       );
     }
   };
+
+  signOut(){
+    debugger;
+    cognitoUtils.signOutCognitoSession();
+    this.props.clearSession();
+  }
 
 
   render() {
@@ -84,10 +91,10 @@ class AdminNavbar extends React.Component {
                   <DropdownItem className="noti-title" header tag="div">
                     <h6 className="text-overflow m-0">Welcome!</h6>
                   </DropdownItem>
-                  <DropdownItem to="/admin/user-profile" tag={Link}>
-                    <i className="ni ni-single-02" />
-                    <span>My profile</span>
-                  </DropdownItem>
+                  {/*<DropdownItem to="/admin/user-profile" tag={Link}>*/}
+                  {/*  <i className="ni ni-single-02" />*/}
+                  {/*  <span>My profile</span>*/}
+                  {/*</DropdownItem>*/}
                   {/*<DropdownItem to="/admin/user-profile" tag={Link}>*/}
                   {/*  <i className="ni ni-settings-gear-65" />*/}
                   {/*  <span>Settings</span>*/}
@@ -101,7 +108,7 @@ class AdminNavbar extends React.Component {
                     <span>Plannings</span>
                   </DropdownItem>
                   <DropdownItem divider />
-                  <DropdownItem href="#pablo" onClick={e => e.preventDefault()}>
+                  <DropdownItem href="#pablo" onClick={e => this.signOut(e)}>
                     <i className="ni ni-user-run" />
                     <span>Logout</span>
                   </DropdownItem>
@@ -123,6 +130,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    clearSession: bindActionCreators(appActions.actions.clearSession, dispatch),
   };
 }
 
@@ -135,4 +143,5 @@ AdminNavbar.propTypes = {
   session: PropTypes.object,
   brandText: PropTypes.string,
   location: PropTypes.object,
+  clearSession: PropTypes.func
 };

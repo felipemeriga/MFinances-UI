@@ -17,7 +17,7 @@ export function* reFetch(payload) {
     payload.config.endpoint = ENDPOINTS[payload.type];
 
     // This is clause here is to handle planning and cash flow tables, because they are filtered depending a specific month
-    if(payload.type == 'PLANNING_TABLE' || payload.type == 'CASH_FLOW_TABLE') {
+    if(payload.type === 'PLANNING_TABLE' || payload.type === 'CASH_FLOW_TABLE') {
         let formattedDate = typeState.selectedMonth.getFullYear() + "-" + (typeState.selectedMonth.getMonth() + 1) + "-" + typeState.selectedMonth.getDate();
         payload.selectedMonth = typeState.selectedMonth;
         payload.config.endpoint = payload.config.endpoint + "/monthly";

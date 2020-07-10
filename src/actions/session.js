@@ -14,3 +14,9 @@ export function setSession(payload) {
         payload: payload
     };
 }
+
+export function clearSession() {
+    return {
+        type: types.CLEAR_SESSION
+    };
+}
