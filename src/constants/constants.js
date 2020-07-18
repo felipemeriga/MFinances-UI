@@ -1,6 +1,6 @@
 
 
-export const DEFAULT_ENV = 'test';
+export const DEFAULT_ENV = 'production';
 
 export const ENVIRONMENT = process.env.ENVIRONMENT || DEFAULT_ENV;
 

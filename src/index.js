@@ -32,6 +32,7 @@ import {Provider} from "react-redux";
 import PrivateRoute from "./PrivateRoute";
 import CognitoCallback from "./components/CognitoCallback/CognitoCallback";
 import {ENVIRONMENT} from "./constants/constants";
+import MFinanceTour from "./components/Tour/MFinanceTour";
 
 
 // The middlewares which will be used in this App
@@ -54,6 +55,7 @@ sagaMiddleware.run(sagaRoot);
 
 ReactDOM.render(
   <Provider store={store}>
+      <MFinanceTour/>
       <BrowserRouter>
         <Switch>
             {/*<Route path="/auth" render={props => <AuthLayout {...props} />} />*/}

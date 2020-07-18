@@ -43,6 +43,7 @@ import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import ExpenseStatisticsTable from "../components/Statistics/ExpenseStatisticsTable";
 import AverageExpenses from "../components/Statistics/AverageExpenses";
+import {Provider} from "react-redux";
 
 class Index extends React.Component {
   state = {
@@ -68,9 +69,11 @@ class Index extends React.Component {
       parseOptions(Chart, chartOptions());
     }
   }
+
+
   render() {
     return (
-      <>
+      <div className={'container-min-height'}>
         <Header />
         {/* Page content */}
         <Container className="mt--7" fluid>
@@ -83,7 +86,7 @@ class Index extends React.Component {
             </Col>
           </Row>
         </Container>
-      </>
+      </div>
     );
   }
 }

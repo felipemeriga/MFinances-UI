@@ -7,7 +7,7 @@ import * as sessionActions from './session';
 const actions = {
     ...apiAction,
     ...planningActions,
-    ...sessionActions
+    ...sessionActions,
 };
 
 export { actions };

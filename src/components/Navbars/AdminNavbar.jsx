@@ -52,7 +52,6 @@ class AdminNavbar extends React.Component {
   };
 
   signOut(){
-    debugger;
     cognitoUtils.signOutCognitoSession();
     this.props.clearSession();
   }
