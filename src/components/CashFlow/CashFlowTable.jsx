@@ -71,7 +71,6 @@ export default class CashFlowTable extends CustomizedTable {
     }
 
     componentDidUpdate(prevProps: Readonly<P>, prevState: Readonly<S>, snapshot: SS): void {
-        console.log(this.props.information.data.content);
 
     }
 

@@ -56,6 +56,8 @@ export function* handleGetAllWithFK(action) {
         result['main'] = request;
         for(let i =0; i < fkEndpoints.length; i++) {
             action.payload.config.endpoint = ENDPOINTS[fkEndpoints[i]];
+            action.payload.config.arguments = 'size=100&page=0&date=2020-7-30';
+            debugger;
             const apiResult = yield api.callApi(action.payload);
             result[ENDPOINTS[fkEndpoints[i]]] =  apiResult.content;
         }

@@ -51,7 +51,7 @@ const getCognitoSession = () => {
                 return;
             }
             // Resolve the promise with the session credentials
-            console.debug('Successfully got session: ' + JSON.stringify(result));
+            // console.debug('Successfully got session: ' + JSON.stringify(result));
             const session = {
                 credentials: {
                     accessToken: result.accessToken.jwtToken,

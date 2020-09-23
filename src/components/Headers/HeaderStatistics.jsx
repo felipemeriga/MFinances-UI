@@ -31,7 +31,9 @@ class HeaderStatistics extends React.Component {
 
     constructor(props) {
         super(props);
-        this.icons = ['fas fa-chart-bar', 'fas fa-chart-pie', 'fas fa-users','fas fa-percent'];
+        this.icons = ['fas fa-chart-bar', 'fas fa-chart-pie', 'fas fa-users','fas fa-percent', 'fas fa-chart-bar',
+            'fas fa-chart-pie', 'fas fa-users','fas fa-percent', 'fas fa-chart-bar', 'fas fa-chart-pie', 'fas fa-users',
+            'fas fa-percent'];
     }
 
     UNSAFE_componentWillMount(): void {
@@ -50,7 +52,7 @@ class HeaderStatistics extends React.Component {
     gettingCards = () => {
         return (
             Object.keys(this.props.headerStatistics.data).map((item, index) => (
-                <Col lg="6" xl="3" key={index}>
+                <Col lg="6" xl="3" key={index} className="cards-margin">
                     <Card className="card-stats mb-4 mb-xl-0">
                         <CardBody>
                             <Row>

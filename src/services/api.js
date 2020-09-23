@@ -1,12 +1,21 @@
 import axios from "axios";
+import https from "https";
 
 import {ENVIRONMENT} from "../constants/constants";
-import {store} from "../index";
+import {store} from "../coco";
 
-const API_ROOT = 'http://localhost:8080/api/';
+let API_ROOT ='';
+if(ENVIRONMENT === 'development') {
+    API_ROOT = 'http://localhost:8080/api/';
+} else {
+    API_ROOT = 'https://backend.mfinance.me/api/';
+}
 
 const api = axios.create({
-    baseURL: API_ROOT
+    baseURL: API_ROOT,
+    httpsAgent: new https.Agent({
+        rejectUnauthorized: false
+    })
 });
 
 // Fetches an API response and normalizes the result JSON according to schema.

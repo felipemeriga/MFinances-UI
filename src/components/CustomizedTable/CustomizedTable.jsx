@@ -144,7 +144,6 @@ export default class CustomizedTable extends React.Component {
     };
 
     handleSearchChange = (search) => {
-        console.log(search);
         this.props.callApi({
             type: this.props.type,
             method: 'get',
